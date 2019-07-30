@@ -1,0 +1,54 @@
+nav.navbar.navigation-bar-bg {
+   background-color: #33333D;
+}
+
+.navbar-custom button .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.smart-road-navigation-bar {
+    padding: 0;
+    border-radius: 16px;
+    border: 2px solid white;
+    margin: auto;
+    width: 85%;
+}
+
+img.navbar-logo {
+    width: 18px;
+    height: 16px;
+}
+
+span.navbar-logo-span {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Indie Flower', cursive, sans-serif;
+}
+
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0;
+}
+
+.nav-link:hover {
+    color: white;
+    text-decoration: none;
+}
+
+a.nav-link {
+    float: right;
+    text-align: center;
+}
+
+@media screen and (max-width: 1024px){
+    .smart-road-navigation-bar {
+        width: 100%;
+        border-radius: 0;
+        border-width: 1px;
+        padding: 12px;
+    }
+}

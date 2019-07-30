@@ -1,0 +1,96 @@
+div.road-card-container {
+    display: inline-block;
+    background-color: #33333d;
+    border: 2px solid #A73C64;
+    border-radius: 10px;
+    width: 26%;
+    margin: 20px 20px;
+    max-height: 500px;
+}
+
+img.road-card-logo {
+    display: block;
+    margin: 8px auto;
+    height: 92px;
+    width: 62px;
+}
+
+div.row.road-card-info-part {
+    margin-top: 8px;
+}
+
+span.titles-in-road-card {
+    margin-bottom: 10px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+span.road-card-each-info {
+    color: #ffac12;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+button.road-card-camera-button {
+    display: block;
+    margin: 20px auto 50px;
+    width: 80%;
+    background-color: #206fa3;
+    color: white;
+    border: 0;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+
+
+@media screen and (max-width: 1200px){
+
+    img.road-card-logo {
+        height: 62px;
+        width: 42px;
+    }
+
+    span.titles-in-road-card {
+        font-size: 14px;
+    }
+
+    span.road-card-each-info {
+        font-size: 14px;
+    }
+
+    button.road-card-camera-button {
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+
+
+}
+
+@media screen and (max-width: 1024px){
+    div.road-card-container {
+        /*float: left;*/
+        width: 40%;
+        display: inline-block;
+    }
+}
+
+/*@media screen and (max-width: 768px){*/
+    /*div.road-card-container {*/
+        /*!*float: left;*!*/
+        /*width: 80%;*/
+        /*display: inline-block;*/
+    /*}*/
+/*}*/
+
+/*// card - height = 220.032*/
+/*// card - width = 195.072*/
+/*// card - border = 2*/
+/*// from - last - line - to - button = 19.2*/
+/*// button - height = 22.848*/
+/*// button - width = 101.088*/
+/*// button - to - end - height = 101.088*/
+/*// from - right - to - button = 83.232*/
+/*// from button to left = 10.752*/
