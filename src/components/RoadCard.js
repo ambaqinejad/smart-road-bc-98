@@ -21,7 +21,7 @@ const roadCard = (props) => {
                             <span className="titles-in-road-card">کد محور:</span>
                         </div>
                         <div className="col-md-8">
-                            <span className="road-card-each-info">۱</span>
+                            <span className="road-card-each-info">{props.road_id}</span>
                         </div>
                     </div>
 
@@ -30,7 +30,7 @@ const roadCard = (props) => {
                             <span className="titles-in-road-card">نام محور:</span>
                         </div>
                         <div className="col-md-8">
-                            <span className="road-card-each-info">قم - تهران</span>
+                            <span className="road-card-each-info">{props.way}</span>
                         </div>
                     </div>
 
@@ -39,7 +39,7 @@ const roadCard = (props) => {
                             <span className="titles-in-road-card">نام استان:</span>
                         </div>
                         <div className="col-md-8">
-                            <span className="road-card-each-info">قم</span>
+                            <span className="road-card-each-info">{props.province}</span>
                         </div>
                     </div>
 
@@ -50,7 +50,9 @@ const roadCard = (props) => {
 
                 </div>
                 <div className="col-sm-12 col-md-8">
-                    <button className="road-card-camera-button">
+                    <button
+                        className="road-card-camera-button"
+                        onClick={props.goToCameraPageClick}>
                         مشاهده دوربین ها
                     </button>
                 </div>

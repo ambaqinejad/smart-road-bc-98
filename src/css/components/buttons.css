@@ -1,0 +1,12 @@
+button.smart-road-buttons {
+    width: 200px;
+    display: block;
+    margin: 30px auto 0;
+    background-color: #206fa3;
+    color: white;
+    border: 0;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+}
