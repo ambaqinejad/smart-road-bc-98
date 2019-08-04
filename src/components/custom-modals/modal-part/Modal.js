@@ -1,8 +1,10 @@
 import React from 'react'
+import '../../../css/components/modal.css'
 import ModalHeader from './ModalHeader'
 import ModalBody from './ModalBody'
 import ModalFooter from './ModalFooter'
-import RadCreatorModal from './RoadCreatorModal'
+import RoadCreatorModal from '../RoadCreatorModal'
+import CameraCreatorModal from '../CameraCreatorModal'
 
 
 const modal = ({
@@ -10,16 +12,23 @@ const modal = ({
                    typeOfModal,
                    modalCloseHandler,
                    modalRegisterHandler,
-                   roadCreatorModalInfo
+                   roadCreatorModalInfo,
+                   cameraCreatorModalInfo
                }) => {
     const showHideModal = show ? 'modal display-block' : 'modal display-none';
     let modalBodyComponent = null;
     if (typeOfModal === 'road') {
-        modalBodyComponent = <RadCreatorModal
+        modalBodyComponent = <RoadCreatorModal
             roadIdRef={roadCreatorModalInfo.roadIdRef}
             sourceRef={roadCreatorModalInfo.sourceRef}
             destinationRef={roadCreatorModalInfo.destinationRef}
             provinceRef={roadCreatorModalInfo.provinceRef}/>
+    } else if (typeOfModal === 'camera') {
+        modalBodyComponent = <CameraCreatorModal
+            cameraIdRef={cameraCreatorModalInfo.cameraIdRef}
+            longitudeRef={cameraCreatorModalInfo.longitudeRef}
+            latitudeRef={cameraCreatorModalInfo.latitudeRef}
+            sequenceRef={cameraCreatorModalInfo.sequenceRef}/>
     }
 
     return (

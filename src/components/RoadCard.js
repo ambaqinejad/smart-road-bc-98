@@ -18,7 +18,7 @@ const roadCard = (props) => {
                 <div className="col-12">
                     <div className="row">
                         <div className="col-md-4">
-                            <span className="titles-in-road-card">کد محور:</span>
+                            <span className="road-card-titles">کد محور:</span>
                         </div>
                         <div className="col-md-8">
                             <span className="road-card-each-info">{props.road_id}</span>
@@ -27,7 +27,7 @@ const roadCard = (props) => {
 
                     <div className="row">
                         <div className="col-sm-12 col-md-4">
-                            <span className="titles-in-road-card">نام محور:</span>
+                            <span className="road-card-titles">نام محور:</span>
                         </div>
                         <div className="col-md-8">
                             <span className="road-card-each-info">{props.way}</span>
@@ -36,7 +36,7 @@ const roadCard = (props) => {
 
                     <div className="row">
                         <div className="col-md-4">
-                            <span className="titles-in-road-card">نام استان:</span>
+                            <span className="road-card-titles">نام استان:</span>
                         </div>
                         <div className="col-md-8">
                             <span className="road-card-each-info">{props.province}</span>

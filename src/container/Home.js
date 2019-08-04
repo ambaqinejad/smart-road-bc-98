@@ -6,7 +6,7 @@ import Spinner from '../components/Spinner'
 import RoadsCardList from '../components/RoadsCardsList'
 import {CREATE_ROAD_URL, GET_ROADS_URL} from '../constants/api/ApiAddresses'
 import {ROAD_CREATE_SUCCESSFULLY_TEXT} from '../constants/text/TextConstants'
-import '../css/containers/home.css'
+import '../css/containers/intersections.css'
 import '../css/components/buttons.css'
 
 
@@ -113,13 +113,10 @@ class Home extends Component {
             if (xhr.responseText === ROAD_CREATE_SUCCESSFULLY_TEXT) {
                 this.getRoadsInfosFromServer()
             } else {
-                console.log(object["road_id"]);
+
             }
         };
         xhr.send(data);
-        xhr.onerror(() => {
-
-        })
     };
 
     render() {
@@ -133,6 +130,7 @@ class Home extends Component {
                 <div>
                     <FakePlate/>
                     <SearchBox
+                        whichSearchBox={'جستجو بر اساس نام محور'}
                         onChange={this.onSearchBoxContentChange}/>
                     <button
                         className='smart-road-buttons'

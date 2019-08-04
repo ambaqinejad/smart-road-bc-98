@@ -12,7 +12,7 @@ const searchBox = (props) => {
                         className='search-box-input'
                         type='search'
                         dir='rtl'
-                        placeholder='جستجو بر اساس نام محور'
+                        placeholder={props.whichSearchBox}
                         onChange={props.onChange}/>
                 </div>
                 <div className='col'>

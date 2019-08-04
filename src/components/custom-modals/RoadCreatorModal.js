@@ -1,6 +1,6 @@
 import React from 'react'
-import '../../../css/components/modal.css'
-import {province} from '../../../constants/json/JsonFiles'
+import '../../css/components/modal.css'
+import {province} from '../../constants/json/JsonFiles'
 
 
 const roadCreatorModal = (props) => {
@@ -18,9 +18,9 @@ const roadCreatorModal = (props) => {
                                     </label>
                                     <input type="number"
                                            className="form-control form-control road-creator-form-input"
-                                           id="road-creator-form-rad-id"
+                                           id="road-creator-form-road-id"
                                            ref={props.roadIdRef}
-                                           placeholder="کد"/>
+                                           placeholder="کد مسیر:"/>
                                 </div>
                             </div>
                             <div className="col-8">

@@ -1,45 +1,40 @@
-div.road-card-container {
+div.camera-card-container {
     display: inline-block;
-    background-color: #33333d;
-    border: 2px solid #A73C64;
+    background-color: #133d0b;
+    border: 2px solid white;
     border-radius: 10px;
     width: 26%;
     margin: 20px 20px;
+    max-height: 700px;
     padding: 20px 5px;
 }
 
-img.road-card-logo {
-    display: block;
-    margin: 8px auto;
-    height: 92px;
-    width: 62px;
-}
 
 img.camera-card-logo {
     display: block;
     margin: 8px auto;
     height: 92px;
-    width: 62px;
+    width: 137px;
 }
 
-div.row.road-card-info-part {
+div.row.camera-card-info-part {
     margin-top: 8px;
 }
 
-span.road-card-titles {
+span.camera-card-titles {
     margin-bottom: 10px;
     color: white;
     font-size: 18px;
     font-weight: bold;
 }
 
-span.road-card-each-info {
+span.camera-card-each-info {
     color: #ffac12;
     font-size: 18px;
     font-weight: bold;
 }
 
-button.road-card-camera-button {
+button.camera-card-camera-button {
     display: block;
     margin: 20px auto 50px;
     width: 80%;
@@ -55,20 +50,20 @@ button.road-card-camera-button {
 
 @media screen and (max-width: 1200px){
 
-    img.road-card-logo {
+    img.camera-card-logo {
         height: 62px;
-        width: 42px;
+        width: 92px;
     }
 
-    span.titles-in-road-card {
+    span.titles-in-camera-card {
         font-size: 14px;
     }
 
-    span.road-card-each-info {
+    span.camera-card-each-info {
         font-size: 14px;
     }
 
-    button.road-card-camera-button {
+    button.camera-card-camera-button {
         font-size: 12px;
         margin-bottom: 20px;
     }
@@ -77,7 +72,7 @@ button.road-card-camera-button {
 }
 
 @media screen and (max-width: 1024px){
-    div.road-card-container {
+    div.camera-card-container {
         /*float: left;*/
         width: 40%;
         display: inline-block;
