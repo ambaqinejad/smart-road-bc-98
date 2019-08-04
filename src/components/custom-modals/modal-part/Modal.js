@@ -9,12 +9,17 @@ const modal = ({
                    show, whichModal,
                    typeOfModal,
                    modalCloseHandler,
-                   modalRegisterHandler
+                   modalRegisterHandler,
+                   roadCreatorModalInfo
                }) => {
     const showHideModal = show ? 'modal display-block' : 'modal display-none';
     let modalBodyComponent = null;
     if (typeOfModal === 'road') {
-        modalBodyComponent = <RadCreatorModal/>
+        modalBodyComponent = <RadCreatorModal
+            roadIdRef={roadCreatorModalInfo.roadIdRef}
+            sourceRef={roadCreatorModalInfo.sourceRef}
+            destinationRef={roadCreatorModalInfo.destinationRef}
+            provinceRef={roadCreatorModalInfo.provinceRef}/>
     }
 
     return (

@@ -2,6 +2,7 @@ import React from 'react'
 import '../../../css/components/modal.css'
 import {province} from '../../../constants/json/JsonFiles'
 
+
 const roadCreatorModal = (props) => {
     return (
         <div className='container-fluid'>
@@ -18,7 +19,7 @@ const roadCreatorModal = (props) => {
                                     <input type="number"
                                            className="form-control form-control road-creator-form-input"
                                            id="road-creator-form-rad-id"
-                                           // ref={}
+                                           ref={props.roadIdRef}
                                            placeholder="کد"/>
                                 </div>
                             </div>
@@ -32,8 +33,7 @@ const roadCreatorModal = (props) => {
                                     <select
                                         className="form-control road-creator-form-select"
                                         id="road-creator-form-province"
-                                        // ref={}>
-                                        >
+                                        ref={props.provinceRef}>
                                         {province.map(el => {
                                             return <option
                                                 className="">
@@ -54,7 +54,7 @@ const roadCreatorModal = (props) => {
                                     <input type="text"
                                            className="form-control road-creator-form-input"
                                            id="road-creator-form-source"
-                                           // ref={}
+                                           ref={props.sourceRef}
                                            placeholder="مبدا"/>
                                 </div>
                             </div>
@@ -68,7 +68,7 @@ const roadCreatorModal = (props) => {
                                     <input type="text"
                                            className="form-control road-creator-form-input"
                                            id="road-creator-form-destination"
-                                           // ref={}
+                                           ref={props.destinationRef}
                                            placeholder="مقصد"/>
                                 </div>
                             </div>

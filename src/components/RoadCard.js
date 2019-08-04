@@ -63,18 +63,3 @@ const roadCard = (props) => {
 };
 
 export default roadCard;
-// card - height = 220.032
-// card - width = 195.072
-// card - border = 2
-// from - right - to - first - of - title = 21.6
-// logo - height = 92.928
-// logo - width = 62.208
-// top-to-logo=7.392
-// from - logo - to - first - title = 6.912
-// distance - between - lines = 9.6;
-// from - last - line - to - button = 19.2
-// button - height = 22.848
-// button - width = 101.088
-// button - to - end - height = 101.088
-// from - right - to - button = 83.232
-// from button to left = 10.752
