@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import '../css/containers/intersections.css'
 import Modal from '../components/custom-modals/modal-part/Modal'
-import FakePlate from '../components/FakePlate'
 import SearchBox from '../components/SearchBox'
 import Spinner from '../components/Spinner'
 import CamerasCarsList from '../components/CamerasCardsList'
@@ -72,8 +71,8 @@ class Camera extends Component {
             this.sequenceRef.current.value === "") {
             alert("لطفا مقادیر خواسته شده را وارد نمایید")
         } else if (isNaN(this.longitudeRef.current.value) ||
-            isNaN(this.latitudeRef.current.value)){
-            console.log(isNaN (parseFloat(this.longitudeRef.current.value)));
+            isNaN(this.latitudeRef.current.value)) {
+            console.log(isNaN(parseFloat(this.longitudeRef.current.value)));
             console.log(isNaN(parseFloat(this.latitudeRef.current.value)));
             alert("طول و عرض جغرافیایی باید عدد باشد!")
 
@@ -142,7 +141,6 @@ class Camera extends Component {
         return (
             <div>
                 <div>
-                    <FakePlate/>
                     <SearchBox
                         whichSearchBox={'جستجو بر اساس کد دوربین'}
                         onChange={this.onSearchBoxContentChange}/>
@@ -169,7 +167,8 @@ class Camera extends Component {
                         modalRegisterHandler={this.modalRegisterHandler}
                         modalCloseHandler={this.hideModal}
                         roadCreatorModalInfo={null}
-                        cameraCreatorModalInfo={this.cameraCreatorModalInfo}/>
+                        cameraCreatorModalInfo={this.cameraCreatorModalInfo}
+                        locationCreatorModalInfo={null}/>
                 </div>
             </div>
         )

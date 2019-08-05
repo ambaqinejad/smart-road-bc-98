@@ -1,0 +1,32 @@
+#map {
+    height: 300px;
+    margin: 0 20px 20px;
+    border-radius: 10px;
+}
+
+
+div.modal-section-in-queries {
+    display: block;
+    height: 100vh;
+    background-color: inherit;
+}
+
+div.map-section-in-queries {
+    height: 100%;
+}
+
+button.query-buttons {
+    display: none;
+}
+
+@media screen and (max-width: 992px){
+    div.modal-section-in-queries {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 992px){
+    button.query-buttons {
+        display: block;
+    }
+}

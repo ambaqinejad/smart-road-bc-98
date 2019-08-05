@@ -17,7 +17,7 @@ const roadCreatorModal = (props) => {
                                         کد مسیر:
                                     </label>
                                     <input type="number"
-                                           className="form-control form-control road-creator-form-input"
+                                           className="form-control road-creator-form-input"
                                            id="road-creator-form-road-id"
                                            ref={props.roadIdRef}
                                            placeholder="کد مسیر:"/>

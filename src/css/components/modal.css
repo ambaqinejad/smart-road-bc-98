@@ -49,7 +49,7 @@
     margin-left: 0;
 }
 
-.modal-close-button, .modal-register-button {
+.modal-close-button, .modal-register-button, .live-modal-register-button {
     width: 40%;
     color: white;
     border: 0;
@@ -64,6 +64,11 @@
 
 .modal-register-button {
     background-color: #0eb70b;
+}
+
+.live-modal-register-button {
+    margin: 10px;
+    background-color: #d35100;
 }
 
 
@@ -114,6 +119,18 @@
 
 ::-webkit-input-placeholder{
     text-align: center;
+}
+
+label.live-query-label {
+    color: #FFFFFF;
+}
+
+div.live-modal-container {
+    background-color: rgba(0,0,0,0.8);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px rgba(255,255,255,.5),
+            3px -3px 3px rgba(255,255,255,.5);
 }
 
 @media screen and (max-width: 900px){

@@ -5,6 +5,7 @@ import ModalBody from './ModalBody'
 import ModalFooter from './ModalFooter'
 import RoadCreatorModal from '../RoadCreatorModal'
 import CameraCreatorModal from '../CameraCreatorModal'
+import LocationQueryModal from '../LocationQueryModal'
 
 
 const modal = ({
@@ -13,7 +14,8 @@ const modal = ({
                    modalCloseHandler,
                    modalRegisterHandler,
                    roadCreatorModalInfo,
-                   cameraCreatorModalInfo
+                   cameraCreatorModalInfo,
+                   locationCreatorModalInfo
                }) => {
     const showHideModal = show ? 'modal display-block' : 'modal display-none';
     let modalBodyComponent = null;
@@ -29,6 +31,14 @@ const modal = ({
             longitudeRef={cameraCreatorModalInfo.longitudeRef}
             latitudeRef={cameraCreatorModalInfo.latitudeRef}
             sequenceRef={cameraCreatorModalInfo.sequenceRef}/>
+    } else if(typeOfModal === 'location-query') {
+        modalBodyComponent = <LocationQueryModal
+            plateNumberRef={locationCreatorModalInfo.plateNumberRef}
+            plateCodeRef={locationCreatorModalInfo.plateCodeRef}
+            plateCharRef={locationCreatorModalInfo.plateCharRef}
+            yearRef={locationCreatorModalInfo.yearRef}
+            monthRef={locationCreatorModalInfo.monthRef}
+            dayRef={locationCreatorModalInfo.dayRef}/>
     }
 
     return (

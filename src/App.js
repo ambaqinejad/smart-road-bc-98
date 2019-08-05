@@ -4,6 +4,8 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import NavigationBar from './components/NavigationBar'
 import Home from './container/Home'
 import Camera from './container/Camera'
+import LocationQuery from './container/LocationQuery'
+import FakePlate from './components/FakePlate'
 
 
 class App extends Component {
@@ -13,11 +15,11 @@ class App extends Component {
             <Router>
                 <div className="App">
                     <NavigationBar/>
+                    <FakePlate/>
                     <Switch>
                         <Route exact path='/' component={Home}/>
-                        <Route exact path='/camera' component={Camera}/>
-                        <Route path='/path-query' component={''}/>
-                        <Route path='/plate-query' component={''}/>
+                        <Route path='/camera' component={Camera}/>
+                        <Route path='/location-query' component={LocationQuery}/>
                     </Switch>
                 </div>
             </Router>

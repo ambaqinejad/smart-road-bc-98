@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import Modal from '../components/custom-modals/modal-part/Modal'
-import FakePlate from '../components/FakePlate'
 import SearchBox from '../components/SearchBox'
 import Spinner from '../components/Spinner'
 import RoadsCardList from '../components/RoadsCardsList'
@@ -128,7 +127,7 @@ class Home extends Component {
         return (
             <div>
                 <div>
-                    <FakePlate/>
+
                     <SearchBox
                         whichSearchBox={'جستجو بر اساس نام محور'}
                         onChange={this.onSearchBoxContentChange}/>
@@ -155,7 +154,9 @@ class Home extends Component {
                     typeOfModal={'road'}
                     modalRegisterHandler={this.modalRegisterHandler}
                     modalCloseHandler={this.hideModal}
-                    roadCreatorModalInfo={this.roadCreatorModalInfo}/>
+                    roadCreatorModalInfo={this.roadCreatorModalInfo}
+                    locationCreatorModalInfo={null}
+                    cameraCreatorModalInfo={null}/>
             </div>
         )
     }

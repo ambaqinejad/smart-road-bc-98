@@ -43,8 +43,8 @@ const nav_bar = () => {
                             <a className="nav-link" href="#">
                                 <NavLink
                                     className="nav-link"
-                                    to={'/plate-query'}>
-                                    استعلام پلاک
+                                    to={'/location-query'}>
+                                    استعلام مکان
                                 </NavLink>
                             </a>
                         </li>
