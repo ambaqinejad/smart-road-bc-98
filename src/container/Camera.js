@@ -20,8 +20,8 @@ class Camera extends Component {
             cameras: [],
             spinnerIsLoading: true,
             showModal: false,
-            road_id: '',
-            province: ''
+            _road_id: -1,
+            _province: ''
         };
 
         this.cameraIdRef = React.createRef();
@@ -44,13 +44,13 @@ class Camera extends Component {
         try {
             let roadID = this.props.location.state.road_id;
             let province = this.props.location.state.province;
-            console.log('hhhh',this.state.road_id);
+            console.log(roadID, province);
             this.setState({
                 road_id: roadID,
                 province: province
+            }, () => {
+                this.getCamerasInfoFromServer()
             });
-            console.log('asd', this.state.province);
-            this.getCamerasInfoFromServer()
         } catch (e) {
 
         }
@@ -71,6 +71,12 @@ class Camera extends Component {
             this.latitudeRef.current.value === "" ||
             this.sequenceRef.current.value === "") {
             alert("لطفا مقادیر خواسته شده را وارد نمایید")
+        } else if (isNaN(this.longitudeRef.current.value) ||
+            isNaN(this.latitudeRef.current.value)){
+            console.log(isNaN (parseFloat(this.longitudeRef.current.value)));
+            console.log(isNaN(parseFloat(this.latitudeRef.current.value)));
+            alert("طول و عرض جغرافیایی باید عدد باشد!")
+
         } else {
             let province = this.state.province;
             let road_id = this.state.road_id;
@@ -87,7 +93,8 @@ class Camera extends Component {
             data.append('longitude', longitude);
             data.append('latitude', latitude);
             console.log(data);
-            this.handleQuery(data)
+            this.handleQuery(data);
+            this.setState({showModal: false});
         }
     };
 
@@ -101,7 +108,7 @@ class Camera extends Component {
             if (xhr.responseText === CAMERA_CREATE_SUCCESSFULLY_TEXT) {
                 this.getCamerasInfoFromServer()
             } else {
-                // console.log(object["road_id"]);
+
             }
         };
         xhr.send(data);
@@ -110,7 +117,6 @@ class Camera extends Component {
     getCamerasInfoFromServer = () => {
         let formData = new FormData();
         formData.append("roadID", this.state.road_id);
-        console.log('aasansjansdjnajsdnajsdnjasndja', this.state.road_id)
         let xhr = new XMLHttpRequest();
         xhr.open("POST", GET_CAMERA_URL, true);
         xhr.onload = () => {

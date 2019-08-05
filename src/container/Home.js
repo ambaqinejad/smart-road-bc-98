@@ -99,9 +99,9 @@ class Home extends Component {
             data.append('source', source);
             data.append('destination', destination);
             console.log(data);
-            this.handleQuery(data)
+            this.handleQuery(data);
+            this.setState({showModal: false})
         }
-        this.setState({showModal: false})
     };
 
     handleQuery = (data) => {
