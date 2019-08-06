@@ -27,6 +27,7 @@ html {
 }
 
 body {
+  background-color: #424250;
   background-color: rgba(0,0,0,0.7);
   background-image: url("./assets/images/5Imexm7.png");
   height: 100vh;

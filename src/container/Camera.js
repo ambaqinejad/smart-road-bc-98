@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
-import '../css/containers/intersections.css'
 import Modal from '../components/custom-modals/modal-part/Modal'
 import SearchBox from '../components/SearchBox'
 import Spinner from '../components/Spinner'
 import CamerasCarsList from '../components/CamerasCardsList'
+import InfoNotAvailable from '../components/InfoNotAvailable'
 import {CREATE_CAMERA_URL, GET_CAMERA_URL} from '../constants/api/ApiAddresses'
 import {CAMERA_CREATE_SUCCESSFULLY_TEXT} from '../constants/text/TextConstants'
 
@@ -151,11 +151,8 @@ class Camera extends Component {
                     </button>
                     <Spinner isLoading={this.state.spinnerIsLoading}/>
                     {(this.state.cameras.length === 0 && !this.state.spinnerIsLoading)
-                        ? <div dir={'rtl'}>
-                            <h5 className='no-access-to-data'>
-                                اطلاعات دوربین ها در دسترس نمی باشد!
-                            </h5>
-                        </div>
+                        ? <InfoNotAvailable
+                                message={'اطلاعات دوربین ها در دسترس نمی باشد!'}/>
                         : <CamerasCarsList camerasData={filterCamera}/>
                     }
                 </div>

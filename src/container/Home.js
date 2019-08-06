@@ -3,9 +3,9 @@ import Modal from '../components/custom-modals/modal-part/Modal'
 import SearchBox from '../components/SearchBox'
 import Spinner from '../components/Spinner'
 import RoadsCardList from '../components/RoadsCardsList'
+import InfoNotAvailable from '../components/InfoNotAvailable'
 import {CREATE_ROAD_URL, GET_ROADS_URL} from '../constants/api/ApiAddresses'
 import {ROAD_CREATE_SUCCESSFULLY_TEXT} from '../constants/text/TextConstants'
-import '../css/containers/intersections.css'
 import '../css/components/buttons.css'
 
 
@@ -138,11 +138,8 @@ class Home extends Component {
                     </button>
                     <Spinner isLoading={this.state.spinnerIsLoading}/>
                     {(this.state.roads.length === 0 && !this.state.spinnerIsLoading)
-                        ? <div dir={'rtl'}>
-                            <h5 className='no-access-to-data'>
-                                اطلاعات جاده ها در دسترس نمی باشد!
-                            </h5>
-                        </div>
+                        ? <InfoNotAvailable
+                            message={'اطلاعات جاده ها در دسترس نمی باشد!'}/>
                         : <RoadsCardList
                             roadData={filterWay}
                             goToCameraPageClick={this.goToCameraPageClick}/>

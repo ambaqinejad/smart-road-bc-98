@@ -126,6 +126,7 @@ label.live-query-label {
 }
 
 div.live-modal-container {
+    margin: 20px;
     background-color: rgba(0,0,0,0.8);
     padding: 10px;
     border-radius: 10px;

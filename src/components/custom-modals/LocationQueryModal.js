@@ -1,6 +1,8 @@
 import React from 'react'
 import '../../css/components/modal.css'
 import {plateChar, day, month} from '../../constants/json/JsonFiles'
+import Spinner from "../Spinner";
+import InfoNotAvailable from "../InfoNotAvailable";
 
 
 const locationQueryModal = (props) => {
@@ -134,6 +136,20 @@ const locationQueryModal = (props) => {
                     </form>
                 </div>
                 <div className="col">
+                </div>
+            </div>
+            <div className='row'>
+                <div className='col-12'>
+                    <Spinner isLoading={props.spinnerIsLoading}/>
+                </div>
+            </div>
+            <div className='row'>
+                <div className='col-12'>
+                    {(props.infoIsNotAvailaible) ?
+                        <InfoNotAvailable
+                            message={'عدم وجود اطلاعات یا بروز مشکل'}/>
+                        : null
+                    }
                 </div>
             </div>
         </div>

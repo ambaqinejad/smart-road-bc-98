@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import '../css/components/buttons.css'
-import '../css/containers/location-query.css'
+import '../css/containers/query-component.css'
 import LocationQueryLiveModal from '../components/custom-modals/LocationQueryLiveModal'
 import Modal from "../components/custom-modals/modal-part/Modal";
 import L from 'leaflet'
@@ -17,6 +17,8 @@ class LocationQuery extends Component {
         super(props);
         this.state = {
             showModal: false,
+            spinnerIsLoading: false,
+            infoIsNotAvailable: false,
             lat: 0,
             lng: 0,
             myMap: null,
@@ -37,7 +39,7 @@ class LocationQuery extends Component {
             plateCodeRef: this.plateCodeRef,
             yearRef: this.yearRef,
             monthRef: this.monthRef,
-            dayRef: this.dayRef
+            dayRef: this.dayRef,
         };
 
         this.plateNumberRef1 = React.createRef();
@@ -71,7 +73,7 @@ class LocationQuery extends Component {
 
     geoLocation = () => {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position => {
+            navigator.geolocation.getCurrentPosition((position) => {
                 this.setState({
                     lat: position.coords.latitude,
                     lng: position.coords.longitude,
@@ -80,7 +82,7 @@ class LocationQuery extends Component {
                 }, () => {
                     this.creatingMap()
                 })
-            }));
+            });
         } else {
             this.setState({
                 lat: 0,
@@ -111,7 +113,7 @@ class LocationQuery extends Component {
         }
         this.marker = L.marker([this.state.lat, this.state.lng])
             .addTo(myMap);
-    }
+    };
 
 
     showModal = () => {
@@ -123,13 +125,11 @@ class LocationQuery extends Component {
     };
 
     modalRegisterHandler = () => {
-        console.log(this.plateNumberRef.current.value)
         this.fetchLocationData(this.plateNumberRef, this.plateCharRef,
             this.plateCodeRef, this.yearRef, this.monthRef, this.dayRef)
     };
 
     modalRegisterHandler1 = () => {
-        console.log(this.plateNumberRef1.current.value)
         this.fetchLocationData(this.plateNumberRef1, this.plateCharRef1,
             this.plateCodeRef1, this.yearRef1, this.monthRef1, this.dayRef1)
     };
@@ -144,6 +144,10 @@ class LocationQuery extends Component {
                 if (pchRef.current.value === "") {
                     alert("حرف پلاک را مشخص کنید")
                 } else {
+                    this.setState({
+                        spinnerIsLoading: true,
+                        infoIsNotAvailable: false
+                    });
                     let plateNumber = pnRef.current.value + pcRef.current.value;
                     let plateChar = pchRef.current.value;
                     let year = yRef.current.value;
@@ -157,7 +161,6 @@ class LocationQuery extends Component {
                     data.append('day', day);
                     console.log(data);
                     this.handleQuery(data);
-                    this.setState({showModal: false})
                 }
             }
         }
@@ -171,7 +174,9 @@ class LocationQuery extends Component {
             if (xhr.responseText.toString() === CAR_DOES_NT_EXIST_TEXT) {
                 this.setState({
                     lat: this.state.position_lat,
-                    lng: this.state.position_lng
+                    lng: this.state.position_lng,
+                    infoIsNotAvailable: true,
+                    spinnerIsLoading: false
                 }, () => {
                     this.manipulateMap(this.state.myMap)
                 })
@@ -179,7 +184,10 @@ class LocationQuery extends Component {
                 let object = JSON.parse(xhr.responseText);
                 this.setState({
                     lng: object["latitude"],
-                    lat: object["longitude"]
+                    lat: object["longitude"],
+                    spinnerIsLoading: false,
+                    infoIsNotAvailable: false,
+                    showModal: false
                 }, () => {
                     this.manipulateMap(this.state.myMap)
                 })
@@ -206,6 +214,8 @@ class LocationQuery extends Component {
                     <div className='row' style={this.style}>
                         <div className='col-lg-6 modal-section-in-queries'>
                             <LocationQueryLiveModal
+                                spinnerIsLoading={this.state.spinnerIsLoading}
+                                infoIsNotAvailable={this.state.infoIsNotAvailable}
                                 locationCreatorModalInfo={this.locationCreatorModalInfo}
                                 modalRegisterHandler={this.modalRegisterHandler}/>
                         </div>
@@ -225,7 +235,10 @@ class LocationQuery extends Component {
                         modalCloseHandler={this.hideModal}
                         roadCreatorModalInfo={null}
                         locationCreatorModalInfo={this.locationCreatorModalInfo1}
-                        cameraCreatorModalInfo={null}/>
+                        cameraCreatorModalInfo={null}
+                        spinnerIsLoading={this.state.spinnerIsLoading}
+                        infoIsNotAvailaible={this.state.infoIsNotAvailable}
+                        pathCreatorModalInfo={null}/>
                 </div>
             </div>
         )

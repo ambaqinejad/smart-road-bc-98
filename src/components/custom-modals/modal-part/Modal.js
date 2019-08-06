@@ -10,12 +10,15 @@ import LocationQueryModal from '../LocationQueryModal'
 
 const modal = ({
                    show, whichModal,
+                   spinnerIsLoading,
+                   infoIsNotAvailaible,
                    typeOfModal,
                    modalCloseHandler,
                    modalRegisterHandler,
                    roadCreatorModalInfo,
                    cameraCreatorModalInfo,
-                   locationCreatorModalInfo
+                   locationCreatorModalInfo,
+                   pathCreatorModalInfo
                }) => {
     const showHideModal = show ? 'modal display-block' : 'modal display-none';
     let modalBodyComponent = null;
@@ -31,14 +34,16 @@ const modal = ({
             longitudeRef={cameraCreatorModalInfo.longitudeRef}
             latitudeRef={cameraCreatorModalInfo.latitudeRef}
             sequenceRef={cameraCreatorModalInfo.sequenceRef}/>
-    } else if(typeOfModal === 'location-query') {
+    } else if (typeOfModal === 'location-query') {
         modalBodyComponent = <LocationQueryModal
             plateNumberRef={locationCreatorModalInfo.plateNumberRef}
             plateCodeRef={locationCreatorModalInfo.plateCodeRef}
             plateCharRef={locationCreatorModalInfo.plateCharRef}
             yearRef={locationCreatorModalInfo.yearRef}
             monthRef={locationCreatorModalInfo.monthRef}
-            dayRef={locationCreatorModalInfo.dayRef}/>
+            dayRef={locationCreatorModalInfo.dayRef}
+            spinnerIsLoading={spinnerIsLoading}
+            infoIsNotAvailaible={infoIsNotAvailaible}/>
     }
 
     return (
