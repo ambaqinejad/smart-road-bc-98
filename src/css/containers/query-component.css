@@ -1,8 +1,10 @@
-#map {
+#map, #routing-map {
     height: 300px;
     margin: 0 20px 20px;
     border-radius: 10px;
 }
+
+
 
 
 div.modal-section-in-queries {

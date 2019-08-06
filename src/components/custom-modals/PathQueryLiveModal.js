@@ -26,7 +26,7 @@ const pathQueryLiveModal = (props) => {
                                            min="11111"
                                            max="99999"
                                            placeholder="شماره پلاک"
-                                           // ref={}
+                                           ref={props.pathCreatorModalInfo.plateNumberRef}
                                     />
                                 </div>
                             </div>
@@ -45,7 +45,7 @@ const pathQueryLiveModal = (props) => {
                                            min="10"
                                            max="99"
                                            placeholder="کد پلاک"
-                                           // ref={}
+                                           ref={props.pathCreatorModalInfo.plateCodeRef}
                                     />
                                 </div>
                             </div>
@@ -58,7 +58,7 @@ const pathQueryLiveModal = (props) => {
                                     </label>
                                     <select className="form-control path-query-form-select"
                                             id="path-query-form-plate-char"
-                                            // ref={}
+                                            ref={props.pathCreatorModalInfo.plateCharRef}
                                     >
                                         {plateChar.map(el => {
                                             return <option
@@ -83,7 +83,7 @@ const pathQueryLiveModal = (props) => {
                                            className="form-control path-query-form-input"
                                            id="path-query-form-year"
                                            placeholder="سال"
-                                           // ref={}
+                                           ref={props.pathCreatorModalInfo.yearRef}
                                     />
                                 </div>
                             </div>
@@ -98,7 +98,7 @@ const pathQueryLiveModal = (props) => {
                                         className="form-control path-query-form-select"
                                         id="path-query-form-month"
                                         placeholder="ماه"
-                                        // ref={}
+                                        ref={props.pathCreatorModalInfo.monthRef}
                                     >
                                         {month.map(el => {
                                             return <option
@@ -121,7 +121,7 @@ const pathQueryLiveModal = (props) => {
                                         className="form-control path-query-form-select"
                                         id="path-query-form-day"
                                         placeholder="روز"
-                                        // ref={}
+                                        ref={props.pathCreatorModalInfo.dayRef}
                                     >
                                         {day.map(el => {
                                             return <option
@@ -148,7 +148,7 @@ const pathQueryLiveModal = (props) => {
                                            min="0"
                                            max="23"
                                            placeholder="ساعت"
-                                           // ref={}
+                                        ref={props.pathCreatorModalInfo.hourRef}
                                     />
                                 </div>
                             </div>
@@ -164,7 +164,7 @@ const pathQueryLiveModal = (props) => {
                                            min="0"
                                            max="59"
                                            placeholder="دقیقه"
-                                           // ref={}
+                                        ref={props.pathCreatorModalInfo.minuteRef}
                                     />
                                 </div>
                             </div>
@@ -180,7 +180,8 @@ const pathQueryLiveModal = (props) => {
                 </div>
                 <div className='col-8'>
                     <button
-                        className='live-modal-register-button'>
+                        className='live-modal-register-button'
+                        onClick={props.modalRegisterHandler}>
                         ثبت
                     </button>
                 </div>

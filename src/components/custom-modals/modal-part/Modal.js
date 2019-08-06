@@ -6,6 +6,7 @@ import ModalFooter from './ModalFooter'
 import RoadCreatorModal from '../RoadCreatorModal'
 import CameraCreatorModal from '../CameraCreatorModal'
 import LocationQueryModal from '../LocationQueryModal'
+import PathQueryModal from '../PathQueryModal'
 
 
 const modal = ({
@@ -44,6 +45,18 @@ const modal = ({
             dayRef={locationCreatorModalInfo.dayRef}
             spinnerIsLoading={spinnerIsLoading}
             infoIsNotAvailaible={infoIsNotAvailaible}/>
+    } else if (typeOfModal === 'path-query') {
+        modalBodyComponent = <PathQueryModal
+            plateNumberRef={pathCreatorModalInfo.plateNumberRef}
+            plateCodeRef={pathCreatorModalInfo.plateCodeRef}
+            plateCharRef={pathCreatorModalInfo.plateCharRef}
+            yearRef={pathCreatorModalInfo.yearRef}
+            monthRef={pathCreatorModalInfo.monthRef}
+            dayRef={pathCreatorModalInfo.dayRef}
+            hourRef={pathCreatorModalInfo.hourRef}
+            minuteRef={pathCreatorModalInfo.minuteRef}
+            spinnerIsLoading={spinnerIsLoading}
+            infoIsNotAvailable={infoIsNotAvailaible}/>
     }
 
     return (

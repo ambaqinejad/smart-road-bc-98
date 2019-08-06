@@ -1,6 +1,8 @@
 import React from 'react'
 import '../../css/components/modal.css'
 import {plateChar, day, month} from '../../constants/json/JsonFiles'
+import Spinner from "../Spinner";
+import InfoNotAvailable from "../InfoNotAvailable";
 
 const pathQueryModal = (props) => {
     return (
@@ -24,7 +26,7 @@ const pathQueryModal = (props) => {
                                            min="11111"
                                            max="99999"
                                            placeholder="شماره پلاک"
-                                        // ref={}
+                                           ref={props.plateNumberRef}
                                     />
                                 </div>
                             </div>
@@ -43,7 +45,7 @@ const pathQueryModal = (props) => {
                                            min="10"
                                            max="99"
                                            placeholder="کد پلاک"
-                                        // ref={}
+                                           ref={props.plateCodeRef}
                                     />
                                 </div>
                             </div>
@@ -56,7 +58,7 @@ const pathQueryModal = (props) => {
                                     </label>
                                     <select className="form-control path-query-form-select"
                                             id="path-query-form-plate-char"
-                                        // ref={}
+                                            ref={props.plateCharRef}
                                     >
                                         {plateChar.map(el => {
                                             return <option
@@ -81,7 +83,7 @@ const pathQueryModal = (props) => {
                                            className="form-control path-query-form-input"
                                            id="path-query-form-year"
                                            placeholder="سال"
-                                        // ref={}
+                                           ref={props.yearRef}
                                     />
                                 </div>
                             </div>
@@ -96,7 +98,7 @@ const pathQueryModal = (props) => {
                                         className="form-control path-query-form-select"
                                         id="path-query-form-month"
                                         placeholder="ماه"
-                                        // ref={}
+                                        ref={props.monthRef}
                                     >
                                         {month.map(el => {
                                             return <option
@@ -119,7 +121,7 @@ const pathQueryModal = (props) => {
                                         className="form-control path-query-form-select"
                                         id="path-query-form-day"
                                         placeholder="روز"
-                                        // ref={}
+                                        ref={props.dayRef}
                                     >
                                         {day.map(el => {
                                             return <option
@@ -146,7 +148,7 @@ const pathQueryModal = (props) => {
                                            min="0"
                                            max="23"
                                            placeholder="ساعت"
-                                        // ref={}
+                                           ref={props.hourRef}
                                     />
                                 </div>
                             </div>
@@ -162,7 +164,7 @@ const pathQueryModal = (props) => {
                                            min="0"
                                            max="59"
                                            placeholder="دقیقه"
-                                        // ref={}
+                                           ref={props.minuteRef}
                                     />
                                 </div>
                             </div>
@@ -170,6 +172,20 @@ const pathQueryModal = (props) => {
                     </form>
                 </div>
                 <div className="col">
+                </div>
+            </div>
+            <div className='row'>
+                <div className='col-12'>
+                    <Spinner isLoading={props.spinnerIsLoading}/>
+                </div>
+            </div>
+            <div className='row'>
+                <div className='col-12'>
+                    {(props.infoIsNotAvailable) ?
+                        <InfoNotAvailable
+                            message={'عدم وجود اطلاعات یا بروز مشکل'}/>
+                        : null
+                    }
                 </div>
             </div>
         </div>

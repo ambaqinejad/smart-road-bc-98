@@ -95,12 +95,6 @@ class LocationQuery extends Component {
 
     creatingMap = () => {
         let myMap = L.map('map');
-        this.setState({myMap: myMap}, () => {
-            this.manipulateMap(this.state.myMap)
-        })
-    };
-
-    manipulateMap = (myMap) => {
         myMap.setView([this.state.lat, this.state.lng], 13);
         L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYW1iYXFpbmVqYWQiLCJhIjoiY2p5eXFjZ3ViMHRsNzNubzFjd291ZjdodSJ9.ulv6PXnKPuO_Nl3-kt3R4Q', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -108,6 +102,12 @@ class LocationQuery extends Component {
             id: 'mapbox.streets',
             accessToken: 'pk.eyJ1IjoiYW1iYXFpbmVqYWQiLCJhIjoiY2p5eXFjZ3ViMHRsNzNubzFjd291ZjdodSJ9.ulv6PXnKPuO_Nl3-kt3R4Q'
         }).addTo(myMap);
+        this.setState({myMap: myMap}, () => {
+            this.manipulateMap(this.state.myMap)
+        })
+    };
+
+    manipulateMap = (myMap) => {
         if (this.marker !== undefined) {
             myMap.removeLayer(this.marker);
         }
@@ -141,8 +141,8 @@ class LocationQuery extends Component {
             if (yRef.current.value < 1300 || yRef.current.value > 1500) {
                 alert("سال باید مقداری بین ۱۳۰۰ تا ۱۵۰۰ داشته باشد")
             } else {
-                if (pchRef.current.value === "") {
-                    alert("حرف پلاک را مشخص کنید")
+                if (pcRef.current.value === "") {
+                    alert("کد پلاک را مشخص کنید")
                 } else {
                     this.setState({
                         spinnerIsLoading: true,
