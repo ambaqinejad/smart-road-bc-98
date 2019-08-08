@@ -10,17 +10,17 @@ const fakePlate = () => {
             <div className="row">
                 <div className="col-4">
                     <img
-                        src={Plate1} className="img-fluid fadeInDown"
+                        src={Plate1} className="img-fluid"
                         alt="Plate"/>
                 </div>
                 <div className="col-4">
                     <img
-                        src={Plate2} className="img-fluid fadeInDown"
+                        src={Plate2} className="img-fluid"
                         alt="Plate"/>
                 </div>
                 <div className="col-4">
                     <img
-                        src={Plate3} className="img-fluid fadeInDown"
+                        src={Plate3} className="img-fluid"
                         alt="Plate"/>
                 </div>
             </div>

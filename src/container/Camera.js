@@ -20,13 +20,14 @@ class Camera extends Component {
             spinnerIsLoading: true,
             showModal: false,
             _road_id: -1,
-            _province: ''
+            _province: '',
+            registerSpinnerIsLoading: false,
+            infoIsNotAvailable: false
         };
-
         this.cameraIdRef = React.createRef();
+        this.sequenceRef = React.createRef();
         this.longitudeRef = React.createRef();
         this.latitudeRef = React.createRef();
-        this.sequenceRef = React.createRef();
         this.cameraCreatorModalInfo = {
             cameraIdRef: this.cameraIdRef,
             sequenceRef: this.sequenceRef,
@@ -65,36 +66,40 @@ class Camera extends Component {
     };
 
     modalRegisterHandler = () => {
-        if (this.cameraIdRef.current.value === "" ||
-            this.longitudeRef.current.value === "" ||
-            this.latitudeRef.current.value === "" ||
-            this.sequenceRef.current.value === "") {
-            alert("لطفا مقادیر خواسته شده را وارد نمایید")
-        } else if (isNaN(this.longitudeRef.current.value) ||
-            isNaN(this.latitudeRef.current.value)) {
-            console.log(isNaN(parseFloat(this.longitudeRef.current.value)));
-            console.log(isNaN(parseFloat(this.latitudeRef.current.value)));
-            alert("طول و عرض جغرافیایی باید عدد باشد!")
-
-        } else {
-            let province = this.state.province;
-            let road_id = this.state.road_id;
-            let cam_id = this.cameraIdRef.current.value;
-            let sequence = this.sequenceRef.current.value;
-            let longitude = this.longitudeRef.current.value;
-            let latitude = this.latitudeRef.current.value;
-            let data = new FormData();
-            console.log(province, road_id);
-            data.append('roadID', road_id);
-            data.append('cam_id', cam_id);
-            data.append('province', province);
-            data.append('sequence', sequence);
-            data.append('longitude', longitude);
-            data.append('latitude', latitude);
-            console.log(data);
-            this.handleQuery(data);
-            this.setState({showModal: false});
-        }
+        console.log(this.longitudeRef)
+        console.log(this.cameraIdRef)
+        console.log(this.latitudeRef)
+        console.log(this.sequenceRef)
+        // if (this.cameraIdRef.current.value === "" ||
+        //     this.longitudeRef.current.value === "" ||
+        //     this.latitudeRef.current.value === "" ||
+        //     this.sequenceRef.current.value === "") {
+        //     alert("لطفا مقادیر خواسته شده را وارد نمایید")
+        // } else if (isNaN(this.longitudeRef.current.value) ||
+        //     isNaN(this.latitudeRef.current.value)) {
+        //     alert("طول و عرض جغرافیایی باید عدد باشد!")
+        // } else {
+        //     this.setState({
+        //         registerSpinnerIsLoading: true,
+        //         infoIsNotAvailable: false
+        //     });
+        //     let province = this.state.province;
+        //     let road_id = this.state.road_id;
+        //     let cam_id = this.cameraIdRef.current.value;
+        //     let sequence = this.sequenceRef.current.value;
+        //     let longitude = this.longitudeRef.current.value;
+        //     let latitude = this.latitudeRef.current.value;
+        //     let data = new FormData();
+        //     console.log(province, road_id);
+        //     data.append('roadID', road_id);
+        //     data.append('cam_id', cam_id);
+        //     data.append('province', province);
+        //     data.append('sequence', sequence);
+        //     data.append('longitude', longitude);
+        //     data.append('latitude', latitude);
+        //     console.log(data);
+        //     this.handleQuery(data);
+        // }
     };
 
     handleQuery = (data) => {
@@ -105,9 +110,16 @@ class Camera extends Component {
             let object = JSON.parse(xhr.responseText);
             console.log(object["road_id"]);
             if (xhr.responseText === CAMERA_CREATE_SUCCESSFULLY_TEXT) {
-                this.getCamerasInfoFromServer()
+                this.getCamerasInfoFromServer();
+                this.setState({
+                    registerSpinnerIsLoading: false,
+                    showModal: false
+                })
             } else {
-
+                this.setState({
+                    registerSpinnerIsLoading: false,
+                    infoIsNotAvailable: true
+                })
             }
         };
         xhr.send(data);
@@ -132,6 +144,10 @@ class Camera extends Component {
         this.setState({searchBoxContent: event.target.value});
     };
 
+    updateOnClick = (id, seq, lat, lng) => {
+        this.setState({showModal: true})
+    };
+
 
     render() {
         let filterCamera = [...this.state.cameras];
@@ -152,8 +168,10 @@ class Camera extends Component {
                     <Spinner isLoading={this.state.spinnerIsLoading}/>
                     {(this.state.cameras.length === 0 && !this.state.spinnerIsLoading)
                         ? <InfoNotAvailable
-                                message={'اطلاعات دوربین ها در دسترس نمی باشد!'}/>
-                        : <CamerasCarsList camerasData={filterCamera}/>
+                            message={'اطلاعات دوربین ها در دسترس نمی باشد!'}/>
+                        : <CamerasCarsList
+                            camerasData={filterCamera}
+                            updateOnClick={this.updateOnClick}/>
                     }
                 </div>
                 <div>
@@ -165,7 +183,10 @@ class Camera extends Component {
                         modalCloseHandler={this.hideModal}
                         roadCreatorModalInfo={null}
                         cameraCreatorModalInfo={this.cameraCreatorModalInfo}
-                        locationCreatorModalInfo={null}/>
+                        locationCreatorModalInfo={null}
+                        infoIsNotAvailaible={this.state.infoIsNotAvailable}
+                        spinnerIsLoading={this.state.registerSpinnerIsLoading}
+                        pathCreatorModalInfo={null}/>
                 </div>
             </div>
         )

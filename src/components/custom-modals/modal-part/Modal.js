@@ -28,13 +28,19 @@ const modal = ({
             roadIdRef={roadCreatorModalInfo.roadIdRef}
             sourceRef={roadCreatorModalInfo.sourceRef}
             destinationRef={roadCreatorModalInfo.destinationRef}
-            provinceRef={roadCreatorModalInfo.provinceRef}/>
+            provinceRef={roadCreatorModalInfo.provinceRef}
+            spinnerIsLoading={spinnerIsLoading}
+            infoIsNotAvailaible={infoIsNotAvailaible}
+            />
     } else if (typeOfModal === 'camera') {
         modalBodyComponent = <CameraCreatorModal
             cameraIdRef={cameraCreatorModalInfo.cameraIdRef}
             longitudeRef={cameraCreatorModalInfo.longitudeRef}
             latitudeRef={cameraCreatorModalInfo.latitudeRef}
-            sequenceRef={cameraCreatorModalInfo.sequenceRef}/>
+            sequenceRef={cameraCreatorModalInfo.sequenceRef}
+            spinnerIsLoading={spinnerIsLoading}
+            infoIsNotAvailaible={infoIsNotAvailaible}
+        />
     } else if (typeOfModal === 'location-query') {
         modalBodyComponent = <LocationQueryModal
             plateNumberRef={locationCreatorModalInfo.plateNumberRef}

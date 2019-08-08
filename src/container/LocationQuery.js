@@ -6,6 +6,7 @@ import Modal from "../components/custom-modals/modal-part/Modal";
 import L from 'leaflet'
 import {CAR_DOES_NT_EXIST_TEXT} from '../constants/text/TextConstants'
 import {GET_CURRENT_LOCATION} from '../constants/api/ApiAddresses'
+import '../css/components/maps.css'
 
 class LocationQuery extends Component {
 
@@ -111,6 +112,7 @@ class LocationQuery extends Component {
         if (this.marker !== undefined) {
             myMap.removeLayer(this.marker);
         }
+        myMap.setView([this.state.lat, this.state.lng], 13);
         this.marker = L.marker([this.state.lat, this.state.lng])
             .addTo(myMap);
     };
@@ -171,6 +173,7 @@ class LocationQuery extends Component {
         xhr.open('POST', GET_CURRENT_LOCATION, true);
         xhr.onload = () => {
             // do something to response
+            console.log('aaaaa',xhr.responseText.toString())
             if (xhr.responseText.toString() === CAR_DOES_NT_EXIST_TEXT) {
                 this.setState({
                     lat: this.state.position_lat,
@@ -183,8 +186,8 @@ class LocationQuery extends Component {
             } else {
                 let object = JSON.parse(xhr.responseText);
                 this.setState({
-                    lng: object["latitude"],
-                    lat: object["longitude"],
+                    lng: object["longitude"],
+                    lat: object["latitude"],
                     spinnerIsLoading: false,
                     infoIsNotAvailable: false,
                     showModal: false

@@ -1,5 +1,4 @@
-@media screen and (max-width: 600px){
-    div.additive-fake-plate {
-        display: none;
-    }
+.fake-plate-img {
+    height: 100px;
+    width: 166px;
 }

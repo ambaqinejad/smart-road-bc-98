@@ -1,6 +1,6 @@
 import React from 'react'
 import '../css/components/camera-card.css'
-// import CameraCardLogo from '../assets/images/camera-logo.png'
+import '../css/components/road-card.css'
 import CameraCardLogo from '../assets/images/camera-logo.png'
 
 const cameraCard = (props) => {
@@ -71,7 +71,18 @@ const cameraCard = (props) => {
                             </span>
                         </div>
                     </div>
+                    <div className="row">
+                        <div className="col">
 
+                        </div>
+                        <div className="col-sm-12 col-md-8">
+                            <button
+                                className="road-card-camera-button"
+                                onClick={props.updateOnClick}>
+                                بروز رسانی دوربین
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

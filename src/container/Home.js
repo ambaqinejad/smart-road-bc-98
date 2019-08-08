@@ -18,7 +18,9 @@ class Home extends Component {
             searchBoxContent: "",
             roads: [],
             spinnerIsLoading: true,
-            showModal: false
+            showModal: false,
+            registerSpinnerIsLoading: false,
+            infoIsNotAvailable: false
         };
 
         this.roadIdRef = React.createRef();
@@ -88,6 +90,10 @@ class Home extends Component {
             || this.sourceRef.value === "" || this.destinationRef.value === "") {
             alert("لطفا مقادیر خواسته شده را وارد نمایید")
         } else {
+            this.setState({
+                registerSpinnerIsLoading: true,
+                infoIsNotAvailable: false
+            });
             let province = this.provinceRef.current.value;
             let road_id = this.roadIdRef.current.value;
             let source = this.sourceRef.current.value;
@@ -99,7 +105,6 @@ class Home extends Component {
             data.append('destination', destination);
             console.log(data);
             this.handleQuery(data);
-            this.setState({showModal: false})
         }
     };
 
@@ -110,9 +115,16 @@ class Home extends Component {
             // do something to response
             let object = JSON.parse(xhr.responseText);
             if (xhr.responseText === ROAD_CREATE_SUCCESSFULLY_TEXT) {
-                this.getRoadsInfosFromServer()
+                this.getRoadsInfosFromServer();
+                this.setState({
+                    registerSpinnerIsLoading: false,
+                    showModal: false
+                })
             } else {
-
+                this.setState({
+                    registerSpinnerIsLoading: false,
+                    infoIsNotAvailable: true
+                })
             }
         };
         xhr.send(data);
@@ -126,8 +138,7 @@ class Home extends Component {
         });
         return (
             <div>
-                <div>
-
+                <div dir={'rtl'}>
                     <SearchBox
                         whichSearchBox={'جستجو بر اساس نام محور'}
                         onChange={this.onSearchBoxContentChange}/>
@@ -153,7 +164,10 @@ class Home extends Component {
                     modalCloseHandler={this.hideModal}
                     roadCreatorModalInfo={this.roadCreatorModalInfo}
                     locationCreatorModalInfo={null}
-                    cameraCreatorModalInfo={null}/>
+                    cameraCreatorModalInfo={null}
+                    pathCreatorModalInfo={null}
+                    spinnerIsLoading={this.state.registerSpinnerIsLoading}
+                    infoIsNotAvailaible={this.state.infoIsNotAvailable}/>
             </div>
         )
     }

@@ -1,6 +1,8 @@
 import React from 'react'
 import '../../css/components/modal.css'
 import {province} from '../../constants/json/JsonFiles'
+import Spinner from "../Spinner";
+import InfoNotAvailable from "../InfoNotAvailable";
 
 
 const roadCreatorModal = (props) => {
@@ -74,6 +76,20 @@ const roadCreatorModal = (props) => {
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+            <div className='row'>
+                <div className='col-12'>
+                    <Spinner isLoading={props.spinnerIsLoading}/>
+                </div>
+            </div>
+            <div className='row'>
+                <div className='col-12'>
+                    {(props.infoIsNotAvailaible) ?
+                        <InfoNotAvailable
+                            message={'وجود محور مشابه یا بروز مشکل'}/>
+                        : null
+                    }
                 </div>
             </div>
         </div>

@@ -12,7 +12,12 @@ const roadsCardsList = (props) => {
                         longitude={camera['longitude']}
                         latitude={camera['latitude']}
                         province={camera["province"]}
-                        sequence={camera["sequence"]}/>
+                        sequence={camera["sequence"]}
+                        updateOnClick={() => props.updateOnClick(
+                            camera["cam_id"],
+                            camera["sequence"],
+                            camera["latitude"],
+                            camera["longitude"])}/>
                 )
             })}
         </div>

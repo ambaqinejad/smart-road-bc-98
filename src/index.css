@@ -51,3 +51,11 @@ code {
 .leaflet-routing-container {
   display: none;
 }
+
+.leaflet-marker-draggable {
+  display: none;
+}
+
+.leaflet-pane > svg path.leaflet-interactive {
+  pointer-events: unset;
+}

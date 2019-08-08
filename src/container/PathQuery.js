@@ -7,6 +7,8 @@ import L from "leaflet";
 import 'leaflet-routing-machine'
 import {GET_PATH_URL} from '../constants/api/ApiAddresses'
 import {CAR_DOES_NT_EXIST_TEXT} from '../constants/text/TextConstants'
+import '../css/components/maps.css'
+
 
 
 class PathQuery extends Component {
@@ -25,11 +27,13 @@ class PathQuery extends Component {
             lng: 0,
             myMap: null,
             locations: [],
+            speeds: [],
             position_lat: 0,
             position_lng: 0
         };
         this.routingControl = null;
-        this.marker = null;
+        this.markers = null;
+        this.popups = null;
         this.plateNumberRef = React.createRef();
         this.plateCharRef = React.createRef();
         this.plateCodeRef = React.createRef();
@@ -39,14 +43,9 @@ class PathQuery extends Component {
         this.hourRef = React.createRef();
         this.minuteRef = React.createRef();
         this.pathCreatorModalInfo = {
-            plateNumberRef: this.plateNumberRef,
-            plateCharRef: this.plateCharRef,
-            plateCodeRef: this.plateCodeRef,
-            yearRef: this.yearRef,
-            monthRef: this.monthRef,
-            dayRef: this.dayRef,
-            hourRef: this.hourRef,
-            minuteRef: this.minuteRef
+            plateNumberRef: this.plateNumberRef, plateCharRef: this.plateCharRef,
+            plateCodeRef: this.plateCodeRef, yearRef: this.yearRef, monthRef: this.monthRef,
+            dayRef: this.dayRef, hourRef: this.hourRef, minuteRef: this.minuteRef
         };
 
         this.plateNumberRef1 = React.createRef();
@@ -58,14 +57,9 @@ class PathQuery extends Component {
         this.hourRef1 = React.createRef();
         this.minuteRef1 = React.createRef();
         this.pathCreatorModalInfo1 = {
-            plateNumberRef: this.plateNumberRef1,
-            plateCharRef: this.plateCharRef1,
-            plateCodeRef: this.plateCodeRef1,
-            yearRef: this.yearRef1,
-            monthRef: this.monthRef1,
-            dayRef: this.dayRef1,
-            hourRef: this.hourRef1,
-            minuteRef: this.minuteRef1
+            plateNumberRef: this.plateNumberRef1, plateCharRef: this.plateCharRef1,
+            plateCodeRef: this.plateCodeRef1, yearRef: this.yearRef1, monthRef: this.monthRef1,
+            dayRef: this.dayRef1, hourRef: this.hourRef1, minuteRef: this.minuteRef1
         }
     }
 
@@ -74,11 +68,6 @@ class PathQuery extends Component {
     }
 
     componentDidMount() {
-        // this.geoLocation()
-        // let popup = L.popup()
-        //     .setLatLng([51.5, -0.09])
-        //     .setContent("I am a standalone popup.")
-        //     .openOn(myMap);
         this.geoLocation()
     }
 
@@ -118,34 +107,95 @@ class PathQuery extends Component {
         })
     };
 
-    manipulateMap = (myMap) => {
-        if (this.marker !== null) {
-            myMap.removeLayer(this.marker);
-            this.marker = null
+    removeMarkersAndPopups(myMap) {
+        myMap.closePopup();
+        if (this.markers !== null) {
+            for (let i = 0; i < this.markers.length; i++) {
+                myMap.removeLayer(this.popups[i]);
+                myMap.removeLayer(this.markers[i]);
+            }
+            this.popups = null;
+            this.markers = null
         }
+    }
+
+    removeRoutingControl(myMap) {
         if (this.routingControl !== null) {
             myMap.removeControl(this.routingControl);
             this.routingControl = null
         }
+    }
+
+    manipulateOnUndefinedOrZeroLength = (myMap) => {
+        myMap.setView([this.state.lat, this.state.lng], 13);
+        this.markers = [];
+        this.popups = [];
+        this.markers.push(L.marker([this.state.lat, this.state.lng]));
+        this.popups.push(L.popup()
+            .setLatLng([this.state.lat, this.state.lng])
+            .setContent("شما اینجا هستید!"));
+        this.markers[0].addTo(myMap).bindPopup(this.popups[0], {
+            closeButton: false,
+            closeOnClick: null
+        }).openPopup();
+    };
+
+    manipulateOnOneLength = (myMap) => {
+        let content = "<p dir='rtl' style='text-align: center'>مکان 1<br> سرعت: " +
+            this.state.path[0].speed + "km/h</p>";
+        this.markers = [];
+        this.popups = [];
+        this.markers.push(L.marker(
+            [this.state.path[0].latitude, this.state.path[0].longitude]
+        ));
+        this.popups.push(L.popup()
+            .setLatLng([this.state.path[0].latitude, this.state.path[0].longitude])
+            .setContent(content));
+        myMap.setView([this.state.path[0].latitude, this.state.path[0].longitude], 13);
+        this.markers[0].addTo(myMap).bindPopup(this.popups[0], {
+            closeButton: false,
+            closeOnClick: null
+        }).openPopup();
+    };
+
+    manipulateOnMultipleLocation = (myMap) => {
+        let points = [];
+        this.markers = [];
+        this.popups = [];
+        for (let i = 0; i < this.state.path.length; i++) {
+            let content = "<p dir='rtl' style='text-align: center'>مکان "
+                + (i + 1) + "<br> سرعت: " + this.state.path[i].speed + "km/h</p>";
+            points.push(L.latLng(this.state.path[i].latitude, this.state.path[i].longitude));
+            this.markers.push(L.marker(
+                [this.state.path[i].latitude, this.state.path[i].longitude]
+            ));
+            this.popups.push(L.popup()
+                .setLatLng([this.state.path[i].latitude, this.state.path[i].longitude])
+                .setContent(content));
+            this.markers[i].addTo(myMap).bindPopup(this.popups[i], {
+                closeButton: false,
+                closeOnClick: null,
+                autoClose: false
+            }).openPopup();
+        }
+        myMap.setView([this.state.path[0].latitude, this.state.path[0].longitude], 13);
+        this.routingControl = L.Routing.control({
+            waypoints: points,
+            router: L.Routing.mapbox('pk.eyJ1IjoiYW1iYXFpbmVqYWQiLCJhIjoiY2p5eXFjZ3ViMHRsNzNubzFjd291ZjdodSJ9.ulv6PXnKPuO_Nl3-kt3R4Q'),
+        }).addTo(myMap);
+    };
+
+
+    manipulateMap = (myMap) => {
+        this.removeMarkersAndPopups(myMap);
+        this.removeRoutingControl(myMap);
         if (typeof this.state.path === 'undefined' ||
             this.state.path.length === 0) {
-            myMap.setView([this.state.lat, this.state.lng], 13);
-            this.marker = L.marker([this.state.lat, this.state.lng])
-                .addTo(myMap);
-        } else if(this.state.path.length === 1) {
-            myMap.setView([this.state.path[0].latitude, this.state.path[0].longitude], 13);
-            this.marker = L.marker([this.state.path[0].latitude, this.state.path[0].longitude])
-                .addTo(myMap);
+            this.manipulateOnUndefinedOrZeroLength(myMap)
+        } else if (this.state.path.length === 1) {
+            this.manipulateOnOneLength(myMap)
         } else if (this.state.path.length > 1) {
-            let points = [];
-            for(let i = 0; i < this.state.path.length; i++) {
-                points.push(L.latLng(this.state.path[i].latitude, this.state.path[i].longitude))
-            }
-            myMap.setView([this.state.path[0].latitude, this.state.path[0].longitude], 13);
-            this.routingControl = L.Routing.control({
-                waypoints: points,
-                router: L.Routing.mapbox('pk.eyJ1IjoiYW1iYXFpbmVqYWQiLCJhIjoiY2p5eXFjZ3ViMHRsNzNubzFjd291ZjdodSJ9.ulv6PXnKPuO_Nl3-kt3R4Q'),
-            }).addTo(myMap);
+            this.manipulateOnMultipleLocation(myMap)
         }
     };
 
@@ -225,7 +275,7 @@ class PathQuery extends Component {
                     infoIsNotAvailable: true,
                     spinnerIsLoading: false,
                     path: []
-                }, ()=> {
+                }, () => {
                     this.manipulateMap(this.state.myMap)
                 })
             } else {
