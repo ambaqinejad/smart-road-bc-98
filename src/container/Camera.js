@@ -4,7 +4,7 @@ import SearchBox from '../components/SearchBox'
 import Spinner from '../components/Spinner'
 import CamerasCarsList from '../components/CamerasCardsList'
 import InfoNotAvailable from '../components/InfoNotAvailable'
-import {CREATE_CAMERA_URL, GET_CAMERA_URL} from '../constants/api/ApiAddresses'
+import {CREATE_CAMERA_URL, GET_CAMERA_URL, UPDATE_CAMERA_URL} from '../constants/api/ApiAddresses'
 import {CAMERA_CREATE_SUCCESSFULLY_TEXT} from '../constants/text/TextConstants'
 
 
@@ -22,7 +22,8 @@ class Camera extends Component {
             _road_id: -1,
             _province: '',
             registerSpinnerIsLoading: false,
-            infoIsNotAvailable: false
+            infoIsNotAvailable: false,
+            versionOfModalRegister: 0
         };
         this.cameraIdRef = React.createRef();
         this.sequenceRef = React.createRef();
@@ -58,7 +59,10 @@ class Camera extends Component {
 
 
     showModal = () => {
-        this.setState({showModal: true})
+        this.setState({
+            showModal: true,
+            versionOfModalRegister: 0
+        })
     };
 
     hideModal = () => {
@@ -66,45 +70,42 @@ class Camera extends Component {
     };
 
     modalRegisterHandler = () => {
-        console.log(this.longitudeRef)
-        console.log(this.cameraIdRef)
-        console.log(this.latitudeRef)
-        console.log(this.sequenceRef)
-        // if (this.cameraIdRef.current.value === "" ||
-        //     this.longitudeRef.current.value === "" ||
-        //     this.latitudeRef.current.value === "" ||
-        //     this.sequenceRef.current.value === "") {
-        //     alert("لطفا مقادیر خواسته شده را وارد نمایید")
-        // } else if (isNaN(this.longitudeRef.current.value) ||
-        //     isNaN(this.latitudeRef.current.value)) {
-        //     alert("طول و عرض جغرافیایی باید عدد باشد!")
-        // } else {
-        //     this.setState({
-        //         registerSpinnerIsLoading: true,
-        //         infoIsNotAvailable: false
-        //     });
-        //     let province = this.state.province;
-        //     let road_id = this.state.road_id;
-        //     let cam_id = this.cameraIdRef.current.value;
-        //     let sequence = this.sequenceRef.current.value;
-        //     let longitude = this.longitudeRef.current.value;
-        //     let latitude = this.latitudeRef.current.value;
-        //     let data = new FormData();
-        //     console.log(province, road_id);
-        //     data.append('roadID', road_id);
-        //     data.append('cam_id', cam_id);
-        //     data.append('province', province);
-        //     data.append('sequence', sequence);
-        //     data.append('longitude', longitude);
-        //     data.append('latitude', latitude);
-        //     console.log(data);
-        //     this.handleQuery(data);
-        // }
+        if (this.cameraIdRef.current.value === "" ||
+            this.longitudeRef.current.value === "" ||
+            this.latitudeRef.current.value === "" ||
+            this.sequenceRef.current.value === "") {
+            alert("لطفا مقادیر خواسته شده را وارد نمایید")
+        } else if (isNaN(this.longitudeRef.current.value) ||
+            isNaN(this.latitudeRef.current.value)) {
+            alert("طول و عرض جغرافیایی باید عدد باشد!")
+        } else {
+            this.setState({
+                registerSpinnerIsLoading: true,
+                infoIsNotAvailable: false
+            });
+            let province = this.state.province;
+            let road_id = this.state.road_id;
+            let cam_id = this.cameraIdRef.current.value;
+            let sequence = this.sequenceRef.current.value;
+            let longitude = this.longitudeRef.current.value;
+            let latitude = this.latitudeRef.current.value;
+            let data = new FormData();
+            console.log(province, road_id);
+            data.append('roadID', road_id);
+            data.append('cam_id', cam_id);
+            data.append('province', province);
+            data.append('sequence', sequence);
+            data.append('longitude', longitude);
+            data.append('latitude', latitude);
+            console.log(data);
+            this.handleQuery(data);
+        }
     };
 
     handleQuery = (data) => {
         let xhr = new XMLHttpRequest();
-        xhr.open('POST', CREATE_CAMERA_URL, true);
+        xhr.open('POST', this.state.versionOfModalRegister === 0 ? CREATE_CAMERA_URL
+            :UPDATE_CAMERA_URL, true);
         xhr.onload = () => {
             // do something to response
             let object = JSON.parse(xhr.responseText);
@@ -145,7 +146,10 @@ class Camera extends Component {
     };
 
     updateOnClick = (id, seq, lat, lng) => {
-        this.setState({showModal: true})
+        this.setState({
+            showModal: true,
+            versionOfModalRegister: 1
+        })
     };
 
 
