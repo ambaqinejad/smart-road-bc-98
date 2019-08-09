@@ -37,10 +37,6 @@ class Camera extends Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-
-    }
-
     componentDidMount() {
         try {
             let roadID = this.props.location.state.road_id;
@@ -107,9 +103,6 @@ class Camera extends Component {
         xhr.open('POST', this.state.versionOfModalRegister === 0 ? CREATE_CAMERA_URL
             :UPDATE_CAMERA_URL, true);
         xhr.onload = () => {
-            // do something to response
-            let object = JSON.parse(xhr.responseText);
-            console.log(object["road_id"]);
             if (xhr.responseText === CAMERA_CREATE_SUCCESSFULLY_TEXT) {
                 this.getCamerasInfoFromServer();
                 this.setState({

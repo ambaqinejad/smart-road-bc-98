@@ -24,51 +24,21 @@ class LocationQuery extends Component {
             lng: 0,
             myMap: null,
             position_lat: 0,
-            position_lng: 0
+            position_lng: 0,
+            locationCreatorModalInfo: {
+                plateNumber: 11111,
+                plateChar: 'الف',
+                plateCode: '10',
+                year: 1300,
+                month: 1,
+                day: 1
+            }
         };
-
         this.marker = {};
-        this.plateNumberRef = React.createRef();
-        this.plateCharRef = React.createRef();
-        this.plateCodeRef = React.createRef();
-        this.yearRef = React.createRef();
-        this.monthRef = React.createRef();
-        this.dayRef = React.createRef();
-        this.locationCreatorModalInfo = {
-            plateNumberRef: this.plateNumberRef,
-            plateCharRef: this.plateCharRef,
-            plateCodeRef: this.plateCodeRef,
-            yearRef: this.yearRef,
-            monthRef: this.monthRef,
-            dayRef: this.dayRef,
-        };
-
-        this.plateNumberRef1 = React.createRef();
-        this.plateCharRef1 = React.createRef();
-        this.plateCodeRef1 = React.createRef();
-        this.yearRef1 = React.createRef();
-        this.monthRef1 = React.createRef();
-        this.dayRef1 = React.createRef();
-        this.locationCreatorModalInfo1 = {
-            plateNumberRef: this.plateNumberRef1,
-            plateCharRef: this.plateCharRef1,
-            plateCodeRef: this.plateCodeRef1,
-            yearRef: this.yearRef1,
-            monthRef: this.monthRef1,
-            dayRef: this.dayRef1
-        }
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-
     }
 
     componentDidMount() {
         this.geoLocation()
-        // let popup = L.popup()
-        //     .setLatLng([51.5, -0.09])
-        //     .setContent("I am a standalone popup.")
-        //     .openOn(myMap);
     }
 
 
@@ -127,34 +97,27 @@ class LocationQuery extends Component {
     };
 
     modalRegisterHandler = () => {
-        this.fetchLocationData(this.plateNumberRef, this.plateCharRef,
-            this.plateCodeRef, this.yearRef, this.monthRef, this.dayRef)
-    };
-
-    modalRegisterHandler1 = () => {
-        this.fetchLocationData(this.plateNumberRef1, this.plateCharRef1,
-            this.plateCodeRef1, this.yearRef1, this.monthRef1, this.dayRef1)
-    };
-
-    fetchLocationData = (pnRef, pchRef, pcRef, yRef, mRef, dRef) => {
-        if (pnRef.current.value < 11111 || pnRef.current.value > 99999) {
+        if (this.state.locationCreatorModalInfo.plateNumber < 11111 ||
+            this.state.locationCreatorModalInfo.plateNumber > 99999) {
             alert("شماره باید ۵ رقمی باشد")
         } else {
-            if (yRef.current.value < 1300 || yRef.current.value > 1500) {
+            if (this.state.locationCreatorModalInfo.year < 1300 ||
+                this.state.locationCreatorModalInfo.year > 1500) {
                 alert("سال باید مقداری بین ۱۳۰۰ تا ۱۵۰۰ داشته باشد")
             } else {
-                if (pcRef.current.value === "") {
+                if (this.state.locationCreatorModalInfo.plateCode === "") {
                     alert("کد پلاک را مشخص کنید")
                 } else {
                     this.setState({
                         spinnerIsLoading: true,
                         infoIsNotAvailable: false
                     });
-                    let plateNumber = pnRef.current.value + pcRef.current.value;
-                    let plateChar = pchRef.current.value;
-                    let year = yRef.current.value;
-                    let month = mRef.current.value;
-                    let day = dRef.current.value;
+                    let plateNumber = ""+this.state.locationCreatorModalInfo.plateNumber +
+                        this.state.locationCreatorModalInfo.plateCode;
+                    let plateChar = this.state.locationCreatorModalInfo.plateChar;
+                    let year = this.state.locationCreatorModalInfo.year;
+                    let month = this.state.locationCreatorModalInfo.month;
+                    let day = this.state.locationCreatorModalInfo.day;
                     let data = new FormData();
                     data.append('plate_char', plateChar);
                     data.append('plate_num', plateNumber);
@@ -172,8 +135,6 @@ class LocationQuery extends Component {
         let xhr = new XMLHttpRequest();
         xhr.open('POST', GET_CURRENT_LOCATION, true);
         xhr.onload = () => {
-            // do something to response
-            console.log('aaaaa',xhr.responseText.toString())
             if (xhr.responseText.toString() === CAR_DOES_NT_EXIST_TEXT) {
                 this.setState({
                     lat: this.state.position_lat,
@@ -199,6 +160,27 @@ class LocationQuery extends Component {
         xhr.send(data);
     };
 
+    change = (event) => {
+        let info = {...this.state.locationCreatorModalInfo};
+        switch (event.target.id) {
+            case 'plate-query-form-plate-number':
+                info.plateNumber = event.target.value; break;
+            case 'plate-query-form-plate-code':
+                info.plateCode = event.target.value; break;
+            case 'plate-query-form-plate-char':
+                info.plateChar = event.target.value; break;
+            case 'plate-query-form-year':
+                info.year = event.target.value; break;
+            case 'plate-query-form-month':
+                info.month = event.target.value; break;
+            case 'plate-query-form-day':
+                info.day = event.target.value; break;
+            default:
+                console.log('default')
+        }
+        this.setState({locationCreatorModalInfo: info})
+    };
+
     render() {
         return (
             <div>
@@ -219,8 +201,9 @@ class LocationQuery extends Component {
                             <LocationQueryLiveModal
                                 spinnerIsLoading={this.state.spinnerIsLoading}
                                 infoIsNotAvailable={this.state.infoIsNotAvailable}
-                                locationCreatorModalInfo={this.locationCreatorModalInfo}
-                                modalRegisterHandler={this.modalRegisterHandler}/>
+                                locationCreatorModalInfo={this.state.locationCreatorModalInfo}
+                                modalRegisterHandler={this.modalRegisterHandler}
+                                locationCreatorModalChangeHandler={this.change}/>
                         </div>
                         <div className='col-sm-12 col-lg-6 map-section-in-queries' style={this.style}>
                             <div id={'map'}>
@@ -234,14 +217,12 @@ class LocationQuery extends Component {
                         show={this.state.showModal}
                         whichModal={"استعلام مکان خودرو"}
                         typeOfModal={'location-query'}
-                        modalRegisterHandler={this.modalRegisterHandler1}
+                        modalRegisterHandler={this.modalRegisterHandler}
                         modalCloseHandler={this.hideModal}
-                        roadCreatorModalInfo={null}
-                        locationCreatorModalInfo={this.locationCreatorModalInfo1}
-                        cameraCreatorModalInfo={null}
+                        locationCreatorModalInfo={this.state.locationCreatorModalInfo}
                         spinnerIsLoading={this.state.spinnerIsLoading}
                         infoIsNotAvailaible={this.state.infoIsNotAvailable}
-                        pathCreatorModalInfo={null}/>
+                        locationCreatorModalChangeHandler={this.change}/>
                 </div>
             </div>
         )

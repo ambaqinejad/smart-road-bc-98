@@ -10,7 +10,6 @@ import {CAR_DOES_NT_EXIST_TEXT} from '../constants/text/TextConstants'
 import '../css/components/maps.css'
 
 
-
 class PathQuery extends Component {
 
     style = {
@@ -29,42 +28,16 @@ class PathQuery extends Component {
             locations: [],
             speeds: [],
             position_lat: 0,
-            position_lng: 0
+            position_lng: 0,
+            pathCreatorModalInfo: {
+                plateNumber: 11111, plateChar: 'الف',
+                plateCode: 10, year: 1300, month: 1,
+                day: 1, hour: 0, minute: 0
+            }
         };
         this.routingControl = null;
         this.markers = null;
         this.popups = null;
-        this.plateNumberRef = React.createRef();
-        this.plateCharRef = React.createRef();
-        this.plateCodeRef = React.createRef();
-        this.yearRef = React.createRef();
-        this.monthRef = React.createRef();
-        this.dayRef = React.createRef();
-        this.hourRef = React.createRef();
-        this.minuteRef = React.createRef();
-        this.pathCreatorModalInfo = {
-            plateNumberRef: this.plateNumberRef, plateCharRef: this.plateCharRef,
-            plateCodeRef: this.plateCodeRef, yearRef: this.yearRef, monthRef: this.monthRef,
-            dayRef: this.dayRef, hourRef: this.hourRef, minuteRef: this.minuteRef
-        };
-
-        this.plateNumberRef1 = React.createRef();
-        this.plateCharRef1 = React.createRef();
-        this.plateCodeRef1 = React.createRef();
-        this.yearRef1 = React.createRef();
-        this.monthRef1 = React.createRef();
-        this.dayRef1 = React.createRef();
-        this.hourRef1 = React.createRef();
-        this.minuteRef1 = React.createRef();
-        this.pathCreatorModalInfo1 = {
-            plateNumberRef: this.plateNumberRef1, plateCharRef: this.plateCharRef1,
-            plateCodeRef: this.plateCodeRef1, yearRef: this.yearRef1, monthRef: this.monthRef1,
-            dayRef: this.dayRef1, hourRef: this.hourRef1, minuteRef: this.minuteRef1
-        }
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-
     }
 
     componentDidMount() {
@@ -201,55 +174,34 @@ class PathQuery extends Component {
 
 
     modalRegisterHandler = () => {
-        this.fetchPathData(this.plateNumberRef, this.plateCharRef,
-            this.plateCodeRef, this.yearRef, this.monthRef, this.dayRef,
-            this.hourRef, this.minuteRef)
-    };
-
-    modalRegisterHandler1 = () => {
-        this.fetchPathData(this.plateNumberRef1, this.plateCharRef1,
-            this.plateCodeRef1, this.yearRef1, this.monthRef1, this.dayRef1,
-            this.hourRef1, this.minuteRef1)
-    };
-
-
-    fetchPathData = (pnRef, pchRef, pcRef, yRef, mRef, dRef, hoRef, miRef) => {
-        // console.log(hoRef.current.value)
         this.setState({
             spinnerIsLoading: false,
             infoIsNotAvailable: false
         });
-        // console.log(pcRef.current.value === '')
-        if (pnRef.current.value < 11111 ||
-            pnRef.current.value > 99999) {
+        if (this.state.pathCreatorModalInfo.plateNumber < 11111 ||
+            this.state.pathCreatorModalInfo.plateNumber > 99999) {
             alert("شماره باید ۵ رقمی باشد")
         } else {
-            if (yRef.current.value < 1300 ||
-                yRef.current.value > 1500) {
+            if (this.state.pathCreatorModalInfo.year < 1300 ||
+                this.state.pathCreatorModalInfo.year > 1500) {
                 alert("سال باید مقداری بین ۱۳۰۰ تا ۱۵۰۰ داشته باشد")
             } else {
-                console.log(pcRef.current.value);
-                console.log(hoRef.current.value);
-                console.log(miRef.current.value);
-                if (pcRef.current.value === '' || hoRef.current.value === '' || miRef.current.value === '') {
-
-                }
-                if (pcRef.current.value === '' ||
-                    hoRef.current.value === '' ||
-                    miRef.current.value === '') {
+                if (this.state.pathCreatorModalInfo.plateCode === '' ||
+                    this.state.pathCreatorModalInfo.hour === '' ||
+                    this.state.pathCreatorModalInfo.minute === '') {
                     alert("لطفا موارد مورد نیاز را وارد کنید")
                 } else {
                     this.setState({
                         spinnerIsLoading: true
                     });
-                    let plateNumber = pnRef.current.value +
-                        pcRef.current.value;
-                    let plateChar = pchRef.current.value;
-                    let year = yRef.current.value;
-                    let month = mRef.current.value;
-                    let day = dRef.current.value;
-                    let hour = hoRef.current.value;
-                    let minute = miRef.current.value;
+                    let plateNumber = "" + this.state.pathCreatorModalInfo.plateNumber +
+                        this.state.pathCreatorModalInfo.plateCode;
+                    let plateChar = this.state.pathCreatorModalInfo.plateChar;
+                    let year = this.state.pathCreatorModalInfo.year;
+                    let month = this.state.pathCreatorModalInfo.month;
+                    let day = this.state.pathCreatorModalInfo.day;
+                    let hour = this.state.pathCreatorModalInfo.hour;
+                    let minute = this.state.pathCreatorModalInfo.minute;
                     let data = new FormData();
                     data.append("plate_char", plateChar);
                     data.append("plate_num", plateNumber);
@@ -270,7 +222,6 @@ class PathQuery extends Component {
         xhr.open("POST", GET_PATH_URL, true);
         xhr.onload = () => {
             if (xhr.responseText.toString() === CAR_DOES_NT_EXIST_TEXT) {
-                console.log('ey vai');
                 this.setState({
                     infoIsNotAvailable: true,
                     spinnerIsLoading: false,
@@ -302,6 +253,31 @@ class PathQuery extends Component {
         this.setState({showModal: false})
     };
 
+    change = (event) => {
+        let info = {...this.state.pathCreatorModalInfo};
+        switch (event.target.id) {
+            case 'path-query-form-plate-number':
+                info.plateNumber = event.target.value; break;
+            case 'path-query-form-plate-code':
+                info.plateCode = event.target.value; break;
+            case 'path-query-form-plate-char':
+                info.plateChar = event.target.value; break;
+            case 'path-query-form-year':
+                info.year = event.target.value; break;
+            case 'path-query-form-month':
+                info.month = event.target.value; break;
+            case 'path-query-form-day':
+                info.day = event.target.value; break;
+            case 'path-query-form-hour':
+                info.hour = event.target.value; break;
+            case 'path-query-form-minute':
+                info.minute = event.target.value; break;
+            default:
+                console.log('default')
+        }
+        this.setState({pathCreatorModalInfo: info})
+    };
+
     render() {
         return (
             <div>
@@ -322,8 +298,9 @@ class PathQuery extends Component {
                             <PathQueryLiveModal
                                 spinnerIsLoading={this.state.spinnerIsLoading}
                                 infoIsNotAvailable={this.state.infoIsNotAvailable}
-                                pathCreatorModalInfo={this.pathCreatorModalInfo}
-                                modalRegisterHandler={this.modalRegisterHandler}/>
+                                pathCreatorModalInfo={this.state.pathCreatorModalInfo}
+                                modalRegisterHandler={this.modalRegisterHandler}
+                                pathCreatorModalChangeHandler={this.change}/>
                         </div>
                         <div className='col-sm-12 col-lg-6 map-section-in-queries' style={this.style}>
                             <div id={'routing-map'} style={this.style}>
@@ -336,15 +313,13 @@ class PathQuery extends Component {
                     <Modal
                         infoIsNotAvailaible={this.state.infoIsNotAvailable}
                         spinnerIsLoading={this.state.spinnerIsLoading}
-                        cameraCreatorModalInfo={null}
-                        locationCreatorModalInfo={null}
-                        modalRegisterHandler={this.modalRegisterHandler1}
-                        roadCreatorModalInfo={null}
+                        modalRegisterHandler={this.modalRegisterHandler}
                         typeOfModal={'path-query'}
                         modalCloseHandler={this.hideModal}
                         whichModal={'استعلام مسیر'}
                         show={this.state.showModal}
-                        pathCreatorModalInfo={this.pathCreatorModalInfo1}/>
+                        pathCreatorModalInfo={this.state.pathCreatorModalInfo}
+                        pathCreatorModalChangeHandler={this.change}/>
                 </div>
             </div>
         )

@@ -19,9 +19,10 @@ const roadCreatorModal = (props) => {
                                         کد مسیر:
                                     </label>
                                     <input type="number"
+                                           value={props.roadId}
+                                           onChange={props.roadCreatorModalChangeHandler}
                                            className="form-control road-creator-form-input"
                                            id="road-creator-form-road-id"
-                                           ref={props.roadIdRef}
                                            placeholder="کد مسیر:"/>
                                 </div>
                             </div>
@@ -35,7 +36,8 @@ const roadCreatorModal = (props) => {
                                     <select
                                         className="form-control road-creator-form-select"
                                         id="road-creator-form-province"
-                                        ref={props.provinceRef}>
+                                        value={props.province}
+                                        onChange={props.roadCreatorModalChangeHandler}>
                                         {province.map(el => {
                                             return <option
                                                 className="">
@@ -56,7 +58,8 @@ const roadCreatorModal = (props) => {
                                     <input type="text"
                                            className="form-control road-creator-form-input"
                                            id="road-creator-form-source"
-                                           ref={props.sourceRef}
+                                           value={props.source}
+                                           onChange={props.roadCreatorModalChangeHandler}
                                            placeholder="مبدا"/>
                                 </div>
                             </div>
@@ -70,7 +73,8 @@ const roadCreatorModal = (props) => {
                                     <input type="text"
                                            className="form-control road-creator-form-input"
                                            id="road-creator-form-destination"
-                                           ref={props.destinationRef}
+                                           value={props.destination}
+                                           onChange={props.roadCreatorModalChangeHandler}
                                            placeholder="مقصد"/>
                                 </div>
                             </div>

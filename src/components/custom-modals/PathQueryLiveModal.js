@@ -23,11 +23,11 @@ const pathQueryLiveModal = (props) => {
                                     <input type="number"
                                            className="form-control path-query-form-input"
                                            id="path-query-form-plate-number"
+                                           value={props.pathCreatorModalInfo.plateNumber}
+                                           onChange={props.pathCreatorModalChangeHandler}
                                            min="11111"
                                            max="99999"
-                                           placeholder="شماره پلاک"
-                                           ref={props.pathCreatorModalInfo.plateNumberRef}
-                                    />
+                                           placeholder="شماره پلاک"/>
                                 </div>
                             </div>
                         </div>
@@ -45,8 +45,8 @@ const pathQueryLiveModal = (props) => {
                                            min="10"
                                            max="99"
                                            placeholder="کد پلاک"
-                                           ref={props.pathCreatorModalInfo.plateCodeRef}
-                                    />
+                                           value={props.pathCreatorModalInfo.plateCode}
+                                           onChange={props.pathCreatorModalChangeHandler}/>
                                 </div>
                             </div>
                             <div className="col-6">
@@ -58,8 +58,8 @@ const pathQueryLiveModal = (props) => {
                                     </label>
                                     <select className="form-control path-query-form-select"
                                             id="path-query-form-plate-char"
-                                            ref={props.pathCreatorModalInfo.plateCharRef}
-                                    >
+                                            value={props.pathCreatorModalInfo.plateChar}
+                                            onChange={props.pathCreatorModalChangeHandler}>
                                         {plateChar.map(el => {
                                             return <option
                                                 className="path-query-form-select">
@@ -83,8 +83,8 @@ const pathQueryLiveModal = (props) => {
                                            className="form-control path-query-form-input"
                                            id="path-query-form-year"
                                            placeholder="سال"
-                                           ref={props.pathCreatorModalInfo.yearRef}
-                                    />
+                                           value={props.pathCreatorModalInfo.year}
+                                           onChange={props.pathCreatorModalChangeHandler}/>
                                 </div>
                             </div>
                             <div className="col-4">
@@ -98,8 +98,8 @@ const pathQueryLiveModal = (props) => {
                                         className="form-control path-query-form-select"
                                         id="path-query-form-month"
                                         placeholder="ماه"
-                                        ref={props.pathCreatorModalInfo.monthRef}
-                                    >
+                                        value={props.pathCreatorModalInfo.month}
+                                        onChange={props.pathCreatorModalChangeHandler}>
                                         {month.map(el => {
                                             return <option
                                                 className="path-query-form-select">
@@ -121,8 +121,8 @@ const pathQueryLiveModal = (props) => {
                                         className="form-control path-query-form-select"
                                         id="path-query-form-day"
                                         placeholder="روز"
-                                        ref={props.pathCreatorModalInfo.dayRef}
-                                    >
+                                        value={props.pathCreatorModalInfo.day}
+                                        onChange={props.pathCreatorModalChangeHandler}>
                                         {day.map(el => {
                                             return <option
                                                 className="path-query-form-select">
@@ -133,8 +133,6 @@ const pathQueryLiveModal = (props) => {
                                 </div>
                             </div>
                         </div>
-
-
                         <div className="row">
                             <div className="col-6">
                                 <div className="form-group">
@@ -148,8 +146,8 @@ const pathQueryLiveModal = (props) => {
                                            min="0"
                                            max="23"
                                            placeholder="ساعت"
-                                        ref={props.pathCreatorModalInfo.hourRef}
-                                    />
+                                           value={props.pathCreatorModalInfo.hour}
+                                           onChange={props.pathCreatorModalChangeHandler}/>
                                 </div>
                             </div>
                             <div className="col-6">
@@ -164,8 +162,8 @@ const pathQueryLiveModal = (props) => {
                                            min="0"
                                            max="59"
                                            placeholder="دقیقه"
-                                        ref={props.pathCreatorModalInfo.minuteRef}
-                                    />
+                                           value={props.pathCreatorModalInfo.minute}
+                                           onChange={props.pathCreatorModalChangeHandler}/>
                                 </div>
                             </div>
                         </div>

@@ -9,60 +9,51 @@ import LocationQueryModal from '../LocationQueryModal'
 import PathQueryModal from '../PathQueryModal'
 
 
-const modal = ({
-                   show, whichModal,
-                   spinnerIsLoading,
-                   infoIsNotAvailaible,
-                   typeOfModal,
-                   modalCloseHandler,
-                   modalRegisterHandler,
-                   roadCreatorModalInfo,
-                   cameraCreatorModalInfo,
-                   locationCreatorModalInfo,
-                   pathCreatorModalInfo
-               }) => {
-    const showHideModal = show ? 'modal display-block' : 'modal display-none';
+const modal = (props) => {
+    const showHideModal = props.show ? 'modal display-block' : 'modal display-none';
     let modalBodyComponent = null;
-    if (typeOfModal === 'road') {
+    if (props.typeOfModal === 'road') {
         modalBodyComponent = <RoadCreatorModal
-            roadIdRef={roadCreatorModalInfo.roadIdRef}
-            sourceRef={roadCreatorModalInfo.sourceRef}
-            destinationRef={roadCreatorModalInfo.destinationRef}
-            provinceRef={roadCreatorModalInfo.provinceRef}
-            spinnerIsLoading={spinnerIsLoading}
-            infoIsNotAvailaible={infoIsNotAvailaible}
-            />
-    } else if (typeOfModal === 'camera') {
+            roadId={props.roadCreatorModalInfo.roadId}
+            source={props.roadCreatorModalInfo.source}
+            destination={props.roadCreatorModalInfo.destination}
+            province={props.roadCreatorModalInfo.province}
+            spinnerIsLoading={props.spinnerIsLoading}
+            infoIsNotAvailaible={props.infoIsNotAvailaible}
+            roadCreatorModalChangeHandler={props.roadCreatorModalChangeHandler}/>
+    } else if (props.typeOfModal === 'camera') {
         modalBodyComponent = <CameraCreatorModal
-            cameraIdRef={cameraCreatorModalInfo.cameraIdRef}
-            longitudeRef={cameraCreatorModalInfo.longitudeRef}
-            latitudeRef={cameraCreatorModalInfo.latitudeRef}
-            sequenceRef={cameraCreatorModalInfo.sequenceRef}
-            spinnerIsLoading={spinnerIsLoading}
-            infoIsNotAvailaible={infoIsNotAvailaible}
+            cameraIdRef={props.cameraCreatorModalInfo.cameraIdRef}
+            longitudeRef={props.cameraCreatorModalInfo.longitudeRef}
+            latitudeRef={props.cameraCreatorModalInfo.latitudeRef}
+            sequenceRef={props.cameraCreatorModalInfo.sequenceRef}
+            spinnerIsLoading={props.spinnerIsLoading}
+            infoIsNotAvailaible={props.infoIsNotAvailaible}
         />
-    } else if (typeOfModal === 'location-query') {
+    } else if (props.typeOfModal === 'location-query') {
         modalBodyComponent = <LocationQueryModal
-            plateNumberRef={locationCreatorModalInfo.plateNumberRef}
-            plateCodeRef={locationCreatorModalInfo.plateCodeRef}
-            plateCharRef={locationCreatorModalInfo.plateCharRef}
-            yearRef={locationCreatorModalInfo.yearRef}
-            monthRef={locationCreatorModalInfo.monthRef}
-            dayRef={locationCreatorModalInfo.dayRef}
-            spinnerIsLoading={spinnerIsLoading}
-            infoIsNotAvailaible={infoIsNotAvailaible}/>
-    } else if (typeOfModal === 'path-query') {
+            plateNumber={props.locationCreatorModalInfo.plateNumber}
+            plateCode={props.locationCreatorModalInfo.plateCode}
+            plateChar={props.locationCreatorModalInfo.plateChar}
+            year={props.locationCreatorModalInfo.year}
+            month={props.locationCreatorModalInfo.month}
+            day={props.locationCreatorModalInfo.day}
+            spinnerIsLoading={props.spinnerIsLoading}
+            infoIsNotAvailaible={props.infoIsNotAvailaible}
+            locationCreatorModalChangeHandler={props.locationCreatorModalChangeHandler}/>
+    } else if (props.typeOfModal === 'path-query') {
         modalBodyComponent = <PathQueryModal
-            plateNumberRef={pathCreatorModalInfo.plateNumberRef}
-            plateCodeRef={pathCreatorModalInfo.plateCodeRef}
-            plateCharRef={pathCreatorModalInfo.plateCharRef}
-            yearRef={pathCreatorModalInfo.yearRef}
-            monthRef={pathCreatorModalInfo.monthRef}
-            dayRef={pathCreatorModalInfo.dayRef}
-            hourRef={pathCreatorModalInfo.hourRef}
-            minuteRef={pathCreatorModalInfo.minuteRef}
-            spinnerIsLoading={spinnerIsLoading}
-            infoIsNotAvailable={infoIsNotAvailaible}/>
+            plateNumber={props.pathCreatorModalInfo.plateNumber}
+            plateCode={props.pathCreatorModalInfo.plateCode}
+            plateChar={props.pathCreatorModalInfo.plateChar}
+            year={props.pathCreatorModalInfo.year}
+            month={props.pathCreatorModalInfo.month}
+            day={props.pathCreatorModalInfo.day}
+            hour={props.pathCreatorModalInfo.hour}
+            minute={props.pathCreatorModalInfo.minute}
+            spinnerIsLoading={props.spinnerIsLoading}
+            infoIsNotAvailable={props.infoIsNotAvailaible}
+            pathCreatorModalChangeHandler={props.pathCreatorModalChangeHandler}/>
     }
 
     return (
@@ -72,14 +63,14 @@ const modal = ({
             <div className='modal-main'>
                 <div className='custom-modal-header'>
                     <ModalHeader
-                        closeOnClick={modalCloseHandler}
-                        modalTitle={whichModal}/>
+                        closeOnClick={props.modalCloseHandler}
+                        modalTitle={props.whichModal}/>
                     <ModalBody>
                         {modalBodyComponent}
                     </ModalBody>
                     <ModalFooter
-                        closeOnClick={modalCloseHandler}
-                        registerOnClick={modalRegisterHandler}/>
+                        closeOnClick={props.modalCloseHandler}
+                        registerOnClick={props.modalRegisterHandler}/>
                 </div>
             </div>
         </div>

@@ -8,40 +8,29 @@ import {CREATE_ROAD_URL, GET_ROADS_URL} from '../constants/api/ApiAddresses'
 import {ROAD_CREATE_SUCCESSFULLY_TEXT} from '../constants/text/TextConstants'
 import '../css/components/buttons.css'
 
-
 class Home extends Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
             searchBoxContent: "",
             roads: [],
             spinnerIsLoading: true,
             showModal: false,
             registerSpinnerIsLoading: false,
-            infoIsNotAvailable: false
+            infoIsNotAvailable: false,
+            roadCreatorModalInfo: {
+                roadId: 0,
+                source: '',
+                destination: '',
+                province: 'آذربایجان شرقی'
+            }
         };
-
-        this.roadIdRef = React.createRef();
-        this.sourceRef = React.createRef();
-        this.destinationRef = React.createRef();
-        this.provinceRef = React.createRef();
-        this.roadCreatorModalInfo = {
-            roadIdRef: this.roadIdRef,
-            sourceRef: this.sourceRef,
-            destinationRef: this.destinationRef,
-            provinceRef: this.provinceRef
-        }
     }
 
 
     componentDidMount() {
         this.getRoadsInfosFromServer()
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-
     }
 
     onSearchBoxContentChange = (event) => {
@@ -86,18 +75,23 @@ class Home extends Component {
     };
 
     modalRegisterHandler = () => {
-        if (this.roadIdRef.value === ""
-            || this.sourceRef.value === "" || this.destinationRef.value === "") {
+        if (this.state.roadCreatorModalInfo.roadId === "" ||
+            this.state.roadCreatorModalInfo.source === "" ||
+            this.state.roadCreatorModalInfo.destination === "") {
             alert("لطفا مقادیر خواسته شده را وارد نمایید")
         } else {
             this.setState({
                 registerSpinnerIsLoading: true,
                 infoIsNotAvailable: false
             });
-            let province = this.provinceRef.current.value;
-            let road_id = this.roadIdRef.current.value;
-            let source = this.sourceRef.current.value;
-            let destination = this.destinationRef.current.value;
+            let province = this.state.roadCreatorModalInfo.province;
+            let road_id = this.state.roadCreatorModalInfo.roadId;
+            let source = this.state.roadCreatorModalInfo.source;
+            let destination = this.state.roadCreatorModalInfo.destination;
+            console.log(province)
+            console.log(road_id)
+            console.log(source)
+            console.log(destination)
             let data = new FormData();
             data.append('road_id', road_id);
             data.append('province', province);
@@ -112,8 +106,6 @@ class Home extends Component {
         let xhr = new XMLHttpRequest();
         xhr.open('POST', CREATE_ROAD_URL, true);
         xhr.onload = () => {
-            // do something to response
-            let object = JSON.parse(xhr.responseText);
             if (xhr.responseText === ROAD_CREATE_SUCCESSFULLY_TEXT) {
                 this.getRoadsInfosFromServer();
                 this.setState({
@@ -128,6 +120,23 @@ class Home extends Component {
             }
         };
         xhr.send(data);
+    };
+
+    change = (event) => {
+        let info = {...this.state.roadCreatorModalInfo};
+        switch (event.target.id) {
+            case 'road-creator-form-road-id':
+                info.roadId = event.target.value; break;
+            case 'road-creator-form-source':
+                info.source = event.target.value; break;
+            case 'road-creator-form-destination':
+                info.destination = event.target.value; break;
+            case 'road-creator-form-province':
+                info.province = event.target.value; break;
+            default:
+                console.log('default')
+        }
+        this.setState({roadCreatorModalInfo: info})
     };
 
     render() {
@@ -162,12 +171,10 @@ class Home extends Component {
                     typeOfModal={'road'}
                     modalRegisterHandler={this.modalRegisterHandler}
                     modalCloseHandler={this.hideModal}
-                    roadCreatorModalInfo={this.roadCreatorModalInfo}
-                    locationCreatorModalInfo={null}
-                    cameraCreatorModalInfo={null}
-                    pathCreatorModalInfo={null}
+                    roadCreatorModalInfo={this.state.roadCreatorModalInfo}
                     spinnerIsLoading={this.state.registerSpinnerIsLoading}
-                    infoIsNotAvailaible={this.state.infoIsNotAvailable}/>
+                    infoIsNotAvailaible={this.state.infoIsNotAvailable}
+                    roadCreatorModalChangeHandler={this.change}/>
             </div>
         )
     }

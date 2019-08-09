@@ -26,7 +26,8 @@ const locationQueryLieModal = (props) => {
                                            id="plate-query-form-plate-number"
                                            min="11111"
                                            max="99999"
-                                           ref={props.locationCreatorModalInfo.plateNumberRef}
+                                           value={props.locationCreatorModalInfo.plateNumber}
+                                           onChange={props.locationCreatorModalChangeHandler}
                                            placeholder="شماره پلاک"/>
                                 </div>
                             </div>
@@ -44,7 +45,8 @@ const locationQueryLieModal = (props) => {
                                            id="plate-query-form-plate-code"
                                            min="10"
                                            max="99"
-                                           ref={props.locationCreatorModalInfo.plateCodeRef}
+                                           value={props.locationCreatorModalInfo.plateCode}
+                                           onChange={props.locationCreatorModalChangeHandler}
                                            placeholder="کد پلاک"/>
                                 </div>
                             </div>
@@ -59,7 +61,8 @@ const locationQueryLieModal = (props) => {
                                     <select
                                         className="form-control plate-query-form-select"
                                         id="plate-query-form-plate-char"
-                                        ref={props.locationCreatorModalInfo.plateCharRef}>
+                                        value={props.locationCreatorModalInfo.plateChar}
+                                        onChange={props.locationCreatorModalChangeHandler}>
                                         {plateChar.map(el => {
                                             return <option
                                                 className="plate-query-form-select">
@@ -82,11 +85,11 @@ const locationQueryLieModal = (props) => {
                                            max="1500"
                                            className="form-control plate-query-form-input"
                                            id="plate-query-form-year"
-                                           ref={props.locationCreatorModalInfo.yearRef}
+                                           value={props.locationCreatorModalInfo.year}
+                                           onChange={props.locationCreatorModalChangeHandler}
                                            placeholder="سال"/>
                                 </div>
                             </div>
-
                             <div className="col-4">
                                 <div className="form-group">
                                     <label
@@ -98,7 +101,8 @@ const locationQueryLieModal = (props) => {
                                         className="form-control plate-query-form-select"
                                         id="plate-query-form-month"
                                         placeholder="ماه"
-                                        ref={props.locationCreatorModalInfo.monthRef}>
+                                        value={props.locationCreatorModalInfo.month}
+                                        onChange={props.locationCreatorModalChangeHandler}>
                                         {month.map(el => {
                                             return <option
                                                 className="plate-query-form-select">
@@ -119,7 +123,8 @@ const locationQueryLieModal = (props) => {
                                         className="form-control plate-query-form-select"
                                         id="plate-query-form-day"
                                         placeholder="روز"
-                                        ref={props.locationCreatorModalInfo.dayRef}>
+                                        value={props.locationCreatorModalInfo.day}
+                                        onChange={props.locationCreatorModalChangeHandler}>
                                         {day.map(el => {
                                             return <option
                                                 className="plate-query-form-select">
