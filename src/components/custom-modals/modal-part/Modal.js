@@ -29,7 +29,9 @@ const modal = (props) => {
             sequenceRef={props.cameraCreatorModalInfo.sequenceRef}
             spinnerIsLoading={props.spinnerIsLoading}
             infoIsNotAvailaible={props.infoIsNotAvailaible}
-        />
+        />;
+        console.log('ma',props.cameraCreatorModalInfo.cameraIdRef.current);
+
     } else if (props.typeOfModal === 'location-query') {
         modalBodyComponent = <LocationQueryModal
             plateNumber={props.locationCreatorModalInfo.plateNumber}

@@ -108,8 +108,8 @@ class PathQuery extends Component {
             .setLatLng([this.state.lat, this.state.lng])
             .setContent("شما اینجا هستید!"));
         this.markers[0].addTo(myMap).bindPopup(this.popups[0], {
-            closeButton: false,
-            closeOnClick: null
+            // closeButton: false,
+            // closeOnClick: null
         }).openPopup();
     };
 

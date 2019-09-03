@@ -24,6 +24,7 @@ class CameraCreatorModal extends Component {
     }
 
     componentDidMount() {
+        console.log("adsadad");
         this.setState({
             cameraId: this.props.cameraIdRef.current.value,
             sequence: this.props.sequenceRef.current.value,
@@ -37,6 +38,7 @@ class CameraCreatorModal extends Component {
     }
 
     geoLocation = () => {
+        console.log("geolocation");
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 this.setState({
@@ -82,7 +84,7 @@ class CameraCreatorModal extends Component {
                 myMap.setView([this.state.latitude, this.state.longitude], 13);
                 this.marker = L.marker([this.state.latitude, this.state.longitude]);
                 this.marker.addTo(myMap)
-            };
+            }
             setInterval(() => {
                 myMap.invalidateSize()
             }, 2000);

@@ -76,11 +76,11 @@ const cameraCard = (props) => {
 
                         </div>
                         <div className="col-sm-12 col-md-8">
-                            <button
-                                className="road-card-camera-button"
-                                onClick={props.updateOnClick}>
-                                بروز رسانی دوربین
-                            </button>
+                            {/*<button*/}
+                                {/*className="road-card-camera-button"*/}
+                                {/*onClick={props.updateOnClick}>*/}
+                                {/*بروز رسانی دوربین*/}
+                            {/*</button>*/}
                         </div>
                     </div>
                 </div>

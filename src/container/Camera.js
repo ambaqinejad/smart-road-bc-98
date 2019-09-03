@@ -94,6 +94,7 @@ class Camera extends Component {
             data.append('longitude', longitude);
             data.append('latitude', latitude);
             console.log(data);
+
             this.handleQuery(data);
         }
     };

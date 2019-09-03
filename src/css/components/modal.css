@@ -73,6 +73,8 @@
 
 .custom-modal-body {
     padding: 10px 5%;
+    max-height: 400px;
+    overflow-y: scroll;
 }
 
 
